@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage.js';
 import MainApp from './components/MainApp.js';
 import PrivateRoute from './components/PrivateRoute.js';
+import Profile from './components/profile.js'; // Import the Profile component
 
 function App() {
   // Read isLoggedIn state from localStorage on component mount
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage isLoggedIn={isLoggedIn} setLoggedIn={setIsLoggedIn} />} />
         <Route path="/mainapp" element={<PrivateRoute element={<MainApp />} isLoggedIn={isLoggedIn} />} />
+        <Route path="/profile" element={<PrivateRoute element={<Profile />} isLoggedIn={isLoggedIn} />} />
       </Routes>
     </Router>
   );
