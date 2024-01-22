@@ -1,3 +1,4 @@
+// LandingPage.js
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
@@ -6,54 +7,47 @@ import { useNavigate } from 'react-router-dom';
 function LandingPage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
-
-  const [loginFormData, setLoginFormData] = useState({
-    email: '',
-    password: '',
-  });
-
-  const [signupFormData, setSignupFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  });
-
+  const [loginFormData, setLoginFormData] = useState({ email: '', password: '' });
+  const [signupFormData, setSignupFormData] = useState({ firstName: '', lastName: '', email: '', password: '' });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Check localStorage on component mount to set initial isLoggedIn state
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    setIsLoggedIn(storedIsLoggedIn);
+  }, []);
+
+  // Handlers for opening and closing modals
   const handleLoginClose = () => setShowLoginModal(false);
   const handleLoginShow = () => setShowLoginModal(true);
-
   const handleSignupClose = () => setShowSignupModal(false);
   const handleSignupShow = () => setShowSignupModal(true);
 
+  // Handlers for form input changes
   const handleLoginInputChange = (e) => {
     const { name, value } = e.target;
-    setLoginFormData({
-      ...loginFormData,
-      [name]: value,
-    });
+    setLoginFormData({ ...loginFormData, [name]: value });
   };
 
   const handleSignupInputChange = (e) => {
     const { name, value } = e.target;
-    setSignupFormData({
-      ...signupFormData,
-      [name]: value,
-    });
+    setSignupFormData({ ...signupFormData, [name]: value });
   };
 
+  // Handler for login form submission
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
       // Make a POST request to your login route on the server
-      const response = await axios.post('/api/auth/login', loginFormData);
+      const response = await axios.post('/api/auth/login', loginFormData, { withCredentials: true });
 
-      // Handle the response, e.g., store tokens in local storage, set isLoggedIn to true, etc.
       console.log('Login Successful', response.data);
-      // You can add token handling here
 
+      // Store userId in localStorage
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userId', response.data.userId); // Assuming the server response contains userId
+      console.log('userId:', response.data.userId);
       setIsLoggedIn(true); // Set isLoggedIn to true after successful login
 
       // Redirect to MainApp after successful login
@@ -64,15 +58,18 @@ function LandingPage() {
     }
   };
 
+  // Handler for signup form submission
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     try {
       // Make a POST request to your signup route on the server
       const response = await axios.post('/api/auth/signup', signupFormData);
 
-      // Handle the response, e.g., store tokens in local storage, set isLoggedIn to true, etc.
       console.log('Signup Successful', response.data);
-      // You can add token handling here
+
+      // Store userId in localStorage
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userId', response.data.userId); // Assuming the server response contains userId
 
       setIsLoggedIn(true); // Set isLoggedIn to true after successful signup
 
@@ -84,19 +81,17 @@ function LandingPage() {
     }
   };
 
-  useEffect(() => {
-    // You can check the user's authentication status here (e.g., from local storage or cookies)
-    // If the user is authenticated, setIsLoggedIn(true);
-  }, []);
-
   const handleLogout = () => {
-    // Implement your logout logic here, e.g., clearing tokens, cookies, or local storage
+    // Clear isLoggedIn state in localStorage and set it to false
+    localStorage.setItem('isLoggedIn', 'false');
+
     setIsLoggedIn(false); // Set isLoggedIn to false after logout
   };
 
   return (
     <div className="landing-page">
-      {isLoggedIn ? ( // Conditional rendering based on login status
+      {console.log('isLoggedIn:', isLoggedIn)} {/* Add this line */}
+      {isLoggedIn ? (
         <Button variant="danger" onClick={handleLogout}>
           Logout
         </Button>
@@ -221,3 +216,4 @@ function LandingPage() {
 }
 
 export default LandingPage;
+
