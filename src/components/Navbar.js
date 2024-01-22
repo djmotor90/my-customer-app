@@ -1,6 +1,6 @@
 // Navbar.js
 import React from 'react';
-import { Navbar, Nav, NavDropdown, Button, NavLink } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
 import '../css/Navbar.css'; // Import your CSS file for custom styling
 
 function CustomNavbar({ userData, handleLogout }) {
@@ -10,7 +10,7 @@ function CustomNavbar({ userData, handleLogout }) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
+          <Nav.Link href="/mainapp">Home</Nav.Link>
           <Nav.Link href="#about">About</Nav.Link>
           <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action1">Action 1</NavDropdown.Item>
@@ -22,7 +22,7 @@ function CustomNavbar({ userData, handleLogout }) {
             <>
               {/* Make the username clickable */}
               <div className="username-text">
-                <NavLink to="/profile">{userData.firstName} {userData.lastName}</NavLink>
+                <Nav.Link href="/profile">{userData.firstName} {userData.lastName}</Nav.Link>
               </div>
               {/* Add the Logout button */}
               <div className="top-right">
