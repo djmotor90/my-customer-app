@@ -66,7 +66,7 @@ function MainApp() {
   return (
     <div className="main-app">
       {/* Add the Bootstrap Navbar */}
-      <CustomNavbar userData={userData} handleLogout={handleLogout} />
+      <CustomNavbar userData={userData} handleLogout={handleLogout} /> {/* Pass userData as a prop */}
       
       
       <h1>Welcome to the Main Application</h1>

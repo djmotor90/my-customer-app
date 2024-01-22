@@ -1,7 +1,7 @@
 // Navbar.js
 import React from 'react';
 import { Navbar, Nav, NavDropdown, Button, NavLink } from 'react-bootstrap';
-import '../css/Navbar.css';
+import '../css/Navbar.css'; // Import your CSS file for custom styling
 
 function CustomNavbar({ userData, handleLogout }) {
   return (
@@ -18,14 +18,18 @@ function CustomNavbar({ userData, handleLogout }) {
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action3">Action 3</NavDropdown.Item>
           </NavDropdown>
-          {/* Make the username clickable */}
-          <div className="username-text">
-            <NavLink to="/profile">{userData.firstName} {userData.lastName}</NavLink>
-          </div>
-          {/* Add the Logout button */}
-          <div className="top-right">
-            <Button variant="danger" onClick={handleLogout}>Logout</Button>
-          </div>
+          {userData && (
+            <>
+              {/* Make the username clickable */}
+              <div className="username-text">
+                <NavLink to="/profile">{userData.firstName} {userData.lastName}</NavLink>
+              </div>
+              {/* Add the Logout button */}
+              <div className="top-right">
+                <Button variant="danger" onClick={handleLogout}>Logout</Button>
+              </div>
+            </>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

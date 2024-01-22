@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import CustomNavbar from './Navbar.js';
 
-function Profile() {
+function Profile({ handleLogout }) {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -37,6 +38,7 @@ function Profile() {
 
   return (
     <div className="profile">
+      <CustomNavbar userData={userData} handleLogout={handleLogout} />
       <h1>User Profile</h1>
       <p>First Name: {userData.firstName}</p>
       <p>Last Name: {userData.lastName}</p>
