@@ -1,74 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CustomNavbar from './Navbar.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserData } from '../features/userSlice'; // Import setUserData action
 
-function Profile({ handleLogout }) {
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isEditMode, setIsEditMode] = useState(false); // State to track edit mode
-  const [updatedUserData, setUpdatedUserData] = useState({}); // State to track updated data
+function Profile() {
+  const userId = useSelector((state) => state.auth.userId); // Retrieve user ID from Redux store
+  const userData = useSelector((state) => state.user.userData); // Retrieve user data from Redux store
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [updatedUserData, setUpdatedUserData] = useState(userData || {});
+  const dispatch = useDispatch(); // Add useDispatch
+  const token = useSelector((state) => state.auth.token); // Retrieve token from Redux store
 
-  // You can retrieve the user ID from your authentication system
-  // For example, if it's stored in localStorage:
-  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        // Fetch user data based on the user's ID
-        const response = await axios.get(`/api/users/${userId}`);
-        setUserData(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [userId]);
+    console.log('Token from Redux:', token);
+    if (userData) {
+      setUpdatedUserData(userData);
+    }
+  }, [userData]);
 
   const handleEditClick = () => {
     setIsEditMode(true);
-    // Initialize updatedUserData with the current user data
     setUpdatedUserData(userData);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // Update the updatedUserData state with the changes
     setUpdatedUserData({ ...updatedUserData, [name]: value });
   };
 
   const handleCancelEdit = () => {
     setIsEditMode(false);
-    // Reset updatedUserData to the current user data
     setUpdatedUserData(userData);
   };
 
   const handleSubmit = async () => {
     try {
-      // Send a request to update the user data on the server
-      await axios.put(`/api/users/${userId}`, updatedUserData);
-      // Update the userData state with the updated data
-      setUserData(updatedUserData);
+      const response = await axios.put(`/api/users/${userId}`, updatedUserData);
       setIsEditMode(false);
+      // Dispatch action to update userData in Redux store
+      dispatch(setUserData(response.data)); // Assuming the response data is the updated user data
     } catch (error) {
       console.error('Error updating user data:', error);
     }
   };
-
-  if (loading) {
-    return <p>Loading user data...</p>;
-  }
-
-  if (!userData) {
-    return <p>User not found.</p>;
-  }
-
   return (
     <div className="profile">
-      <CustomNavbar userData={userData} handleLogout={handleLogout} />
+      <CustomNavbar />
       <h1>User Profile</h1>
       {isEditMode ? (
         <>
