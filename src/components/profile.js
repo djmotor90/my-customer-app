@@ -37,10 +37,15 @@ function Profile() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.put(`/api/users/${userId}`, updatedUserData);
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}` // Corrected to use template literals
+        }
+      };
+  
+      const response = await axios.put(`/api/users/${userId}`, updatedUserData, config);
       setIsEditMode(false);
-      // Dispatch action to update userData in Redux store
-      dispatch(setUserData(response.data)); // Assuming the response data is the updated user data
+      dispatch(setUserData(response.data)); // Update userData in Redux store with the response data
     } catch (error) {
       console.error('Error updating user data:', error);
     }
