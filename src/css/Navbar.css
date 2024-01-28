@@ -11,3 +11,7 @@
     top: 10px; /* Adjust the top position as needed */
     right: 100px; /* Adjust the right position as needed */
   }
+  .add-workspace-item {
+    background-color: green; /* Set the background color to green */
+    color: white; /* Set the text color to white */
+  }
