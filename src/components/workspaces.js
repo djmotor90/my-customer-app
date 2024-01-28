@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Modal, Button, Form, ListGroup } from 'react-bootstrap';
+import CustomNavbar from './Navbar.js';
+import '../css/workspace.css';
 
 function Workspace() {
   // State management for various component functionalities
@@ -234,9 +236,14 @@ const handleDeleteWorkspace = async () => {
 
 
   return (
+    
     <div>
+      <CustomNavbar />
       <h1>Your Workspaces</h1>
       {error && <p className="error">{error}</p>}
+      {/* Button to open the "Add Workspace" modal */}
+      <button className= "new-workspace" variant="danger" onClick={openAddWorkspaceModal}>Add New Workspace</button>
+
       <ul>
         {/* Maps through each workspace to display its details */}
         {workspaces.map(workspace => (
@@ -310,9 +317,7 @@ const handleDeleteWorkspace = async () => {
         ))}
       </ul>
 
-      {/* Button to open the "Add Workspace" modal */}
-      <button onClick={openAddWorkspaceModal}>Add New Workspace</button>
-
+      
       {/* "Add Workspace" modal */}
       <Modal show={showAddWorkspaceModal} onHide={closeAddWorkspaceModal}>
         <Modal.Header closeButton>
@@ -357,8 +362,8 @@ const handleDeleteWorkspace = async () => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeDeletePrompt}>Cancel</Button>
-          <Button variant="danger" onClick={handleDeleteWorkspace}>Delete</Button>
+          <Button className='buttoneditdelete' variant="secondary" onClick={closeDeletePrompt}>Cancel</Button>
+          <Button className='buttoneditdelete' variant="danger" onClick={handleDeleteWorkspace}>Delete</Button>
         </Modal.Footer>
       </Modal>
     </div>

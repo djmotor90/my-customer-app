@@ -35,7 +35,10 @@ function CustomNavbar() {
           {userData && (
             <>
               <div className="username-text">
-                <Nav.Link href="/profile">{userData.firstName} {userData.lastName}</Nav.Link>
+              <NavDropdown title={`${userData.firstName} ${userData.lastName}`} id="basic-nav-dropdown">
+              <NavDropdown.Item href="/profile">Edit Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/workspaces">Edit Workspaces</NavDropdown.Item>
+              </NavDropdown>
               </div>
               <div className="top-right">
                 <Button variant="danger" onClick={handleLogout}>Logout</Button>
