@@ -14,7 +14,7 @@ function Profile() {
 
 
   useEffect(() => {
-    console.log('Token from Redux:', token);
+    
     if (userData) {
       setUpdatedUserData(userData);
     }
