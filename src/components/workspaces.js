@@ -18,8 +18,9 @@ function Workspace() {
   const [showAddWorkspaceModal, setShowAddWorkspaceModal] = useState(false); // Controls visibility of the "Add Workspace" modal
   const [newWorkspaceName, setNewWorkspaceName] = useState(''); // Name for the new workspace
   const [newWorkspaceApi, setNewWorkspaceApi] = useState(''); // API key for the new workspace
-  const [deleteConfirmation, setDeleteConfirmation] = useState(''); // Add this state
-  const [isDeletePromptOpen, setIsDeletePromptOpen] = useState(false); // Add this state
+  const [newWorkspaceListId, setNewWorkspaceListId] = useState(''); // List ID for the new workspace
+  const [deleteConfirmation, setDeleteConfirmation] = useState(''); // Delete confirmation input
+  const [isDeletePromptOpen, setIsDeletePromptOpen] = useState(false); // Delete confirmation modal
   const token = useSelector((state) => state.auth.token); // Auth token from redux state
   const userId = useSelector((state) => state.auth.userId); // Current user's ID from redux state
 
@@ -127,6 +128,7 @@ function Workspace() {
         ...editData,
         users: updatedUserIds,
         api: editData.api,
+        listId: editData.listId, // Include listId
       }, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
@@ -150,6 +152,7 @@ function Workspace() {
     setShowAddWorkspaceModal(false);
     setNewWorkspaceName('');
     setNewWorkspaceApi('');
+    setNewWorkspaceListId('');
   };
 
   // Handles changes to the "Add Workspace" form fields
@@ -158,6 +161,8 @@ function Workspace() {
       setNewWorkspaceName(e.target.value);
     } else if (field === 'api') {
       setNewWorkspaceApi(e.target.value);
+    } else if (field === 'listId') {
+      setNewWorkspaceListId(e.target.value);
     }
   };
 
@@ -169,12 +174,13 @@ function Workspace() {
         owner: userId,
         users: [userId], // Add the current user as the owner and a user
         api: newWorkspaceApi,
+        listId: newWorkspaceListId, // Include listId
       }, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
 
       console.log("Workspace created:", response.data);
-      
+
       // Close the "Add Workspace" modal
       closeAddWorkspaceModal();
 
@@ -182,61 +188,57 @@ function Workspace() {
       fetchWorkspaces();
     } catch (error) {
       console.error("Error creating workspace:", error);
-     
+      setError(error.message || 'Failed to create workspace.');
     }
   };
 
-
-
   // Function to handle clicking the delete button
-const handleDeleteClick = (workspaceId) => {
-  console.log("Delete button clicked");
-  setEditWorkspaceId(workspaceId); // Set the workspace ID to delete
-  openDeletePrompt(); // Open the delete confirmation prompt
-};
+  const handleDeleteClick = (workspaceId) => {
+    console.log("Delete button clicked");
+    setEditWorkspaceId(workspaceId); // Set the workspace ID to delete
+    openDeletePrompt(); // Open the delete confirmation prompt
+  };
 
-// Function to open the delete confirmation prompt
-const openDeletePrompt = () => {
-  console.log("Opening delete confirmation prompt");
-  setIsDeletePromptOpen(true);
-};
+  // Function to open the delete confirmation prompt
+  const openDeletePrompt = () => {
+    console.log("Opening delete confirmation prompt");
+    setIsDeletePromptOpen(true);
+  };
 
-// Function to close the delete confirmation prompt
-const closeDeletePrompt = () => {
-  console.log("Closing delete confirmation prompt");
-  setIsDeletePromptOpen(false);
-  setDeleteConfirmation(''); // Reset the delete confirmation input
-};
+  // Function to close the delete confirmation prompt
+  const closeDeletePrompt = () => {
+    console.log("Closing delete confirmation prompt");
+    setIsDeletePromptOpen(false);
+    setDeleteConfirmation(''); // Reset the delete confirmation input
+  };
 
-// Function to handle the actual deletion of the workspace
-const handleDeleteWorkspace = async () => {
-  console.log("Deleting workspace");
-  try {
-    // Add a check to ensure the user has typed "Delete" to confirm
-    if (deleteConfirmation === 'Delete') {
-      const response = await axios.delete(`/api/workspace/${editWorkspaceId}`, {
-        headers: { 'Authorization': `Bearer ${token}` },
-      });
+  // Function to handle the actual deletion of the workspace
+  const handleDeleteWorkspace = async () => {
+    console.log("Deleting workspace");
+    try {
+      // Add a check to ensure the user has typed "Delete" to confirm
+      if (deleteConfirmation === 'Delete') {
+        const response = await axios.delete(`/api/workspace/${editWorkspaceId}`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
 
-      console.log("Workspace deleted:", response.data);
+        console.log("Workspace deleted:", response.data);
 
-      // Close the delete confirmation prompt
-      closeDeletePrompt();
+        // Close the delete confirmation prompt
+        closeDeletePrompt();
 
-      // Refresh the list of workspaces
-      fetchWorkspaces();
-    } else {
-      setError('Type "Delete" to confirm deletion.'); // Display an error message if confirmation is incorrect
+        // Refresh the list of workspaces
+        fetchWorkspaces();
+      } else {
+        setError('Type "Delete" to confirm deletion.'); // Display an error message if confirmation is incorrect
+      }
+    } catch (error) {
+      console.error("Error deleting workspace:", error);
+      setError('Failed to delete workspace.');
     }
-  } catch (error) {
-    console.error("Error deleting workspace:", error);
-    setError('Failed to delete workspace.');
-  }
-};
-
+  };
 
   return (
-    
     <div>
       <CustomNavbar />
       <h1>Your Workspaces</h1>
@@ -270,6 +272,14 @@ const handleDeleteWorkspace = async () => {
                       type="text"
                       value={editData.api}
                       onChange={(e) => handleInputChange(e, 'api')}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="editWorkspaceListId">
+                    <Form.Label>List ID</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={editData.listId}
+                      onChange={(e) => handleInputChange(e, 'listId')}
                     />
                   </Form.Group>
                   <ListGroup>
@@ -307,17 +317,15 @@ const handleDeleteWorkspace = async () => {
                 <strong>Owner:</strong> {workspace.ownerName}<br/>
                 <strong>Users:</strong> {workspace.userNames.join(", ")}<br/>
                 <strong>API Key:</strong> {workspace.api}<br/>
-                <button onClick={() => handleEditClick(workspace)}
-                className="btn btn-success" > Edit </button>
-                <button onClick={() => handleDeleteClick(workspace._id)}
-                className="btn btn-danger"> Delete </button>
+                <strong>List ID:</strong> {workspace.listId}<br/>
+                <button onClick={() => handleEditClick(workspace)} className="btn btn-success">Edit</button>
+                <button onClick={() => handleDeleteClick(workspace._id)} className="btn btn-danger">Delete</button>
               </div>
             )}
           </li>
         ))}
       </ul>
 
-      
       {/* "Add Workspace" modal */}
       <Modal show={showAddWorkspaceModal} onHide={closeAddWorkspaceModal}>
         <Modal.Header closeButton>
@@ -338,6 +346,14 @@ const handleDeleteWorkspace = async () => {
               type="text"
               value={newWorkspaceApi}
               onChange={(e) => handleAddWorkspaceInputChange(e, 'api')}
+            />
+          </Form.Group>
+          <Form.Group controlId="newWorkspaceListId">
+            <Form.Label>List ID</Form.Label>
+            <Form.Control
+              type="text"
+              value={newWorkspaceListId}
+              onChange={(e) => handleAddWorkspaceInputChange(e, 'listId')}
             />
           </Form.Group>
         </Modal.Body>

@@ -14,6 +14,7 @@ function CustomNavbar() {
   const [showAddWorkspaceModal, setShowAddWorkspaceModal] = useState(false);
   const [newWorkspaceName, setNewWorkspaceName] = useState('');
   const [newWorkspaceApi, setNewWorkspaceApi] = useState('');
+  const [newWorkspaceListId, setNewWorkspaceListId] = useState(''); // Add state for listId
 
   const fetchWorkspaces = useCallback(async () => {
     try {
@@ -44,6 +45,7 @@ function CustomNavbar() {
     setShowAddWorkspaceModal(false);
     setNewWorkspaceName('');
     setNewWorkspaceApi('');
+    setNewWorkspaceListId(''); // Reset listId field
   };
 
   const handleAddWorkspaceInputChange = (e, field) => {
@@ -51,6 +53,8 @@ function CustomNavbar() {
       setNewWorkspaceName(e.target.value);
     } else if (field === 'api') {
       setNewWorkspaceApi(e.target.value);
+    } else if (field === 'listId') { // Handle input for listId
+      setNewWorkspaceListId(e.target.value);
     }
   };
 
@@ -61,6 +65,7 @@ function CustomNavbar() {
         owner: userId,
         users: [userId],
         api: newWorkspaceApi,
+        listId: newWorkspaceListId, // Include listId in the new workspace object
       }, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
@@ -73,6 +78,7 @@ function CustomNavbar() {
       console.error("Error creating workspace:", error);
     }
   };
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Navbar.Brand href="/mainapp">
@@ -143,6 +149,14 @@ function CustomNavbar() {
               type="text"
               value={newWorkspaceApi}
               onChange={(e) => handleAddWorkspaceInputChange(e, 'api')}
+            />
+          </Form.Group>
+          <Form.Group controlId="newWorkspaceListId"> {/* Input field for listId */}
+            <Form.Label>List ID</Form.Label>
+            <Form.Control
+              type="text"
+              value={newWorkspaceListId}
+              onChange={(e) => handleAddWorkspaceInputChange(e, 'listId')}
             />
           </Form.Group>
         </Modal.Body>

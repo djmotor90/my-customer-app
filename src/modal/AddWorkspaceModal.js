@@ -7,27 +7,25 @@ import { selectUserId } from '../features/userSlice';
 
 function AddWorkspaceModal({ show, handleClose }) {
   const dispatch = useDispatch();
-  const userId = useSelector(selectUserId); // Retrieve userId from Redux store
+  const userId = useSelector(selectUserId);
   const [workspaceName, setWorkspaceName] = useState('');
-  const [api, setApi] = useState(''); // Add state for API
+  const [api, setApi] = useState('');
+  const [listId, setListId] = useState(''); // Add state for listId
 
   const handleCreateWorkspace = async () => {
     try {
-      // Create a new workspace with the owner as the current user (userId)
       const newWorkspace = {
         name: workspaceName,
-        owner: userId, // Set owner to userId from Redux
-        users: [], 
-        api: api, // Set the API value from state
+        owner: userId,
+        users: [],
+        api: api,
+        listId: listId, // Include listId in the new workspace object
       };
 
-      // Call API function to create the workspace
       const response = await createWorkspace(newWorkspace);
 
-      // Dispatch the userId to Redux
       dispatch(setUserId(userId));
 
-      // Close the modal
       handleClose();
     } catch (error) {
       console.error('Error creating workspace:', error);
@@ -56,6 +54,15 @@ function AddWorkspaceModal({ show, handleClose }) {
             placeholder="Enter API"
             value={api}
             onChange={(e) => setApi(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="listId">
+          <Form.Label>List ID</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter List ID"
+            value={listId}
+            onChange={(e) => setListId(e.target.value)}
           />
         </Form.Group>
       </Modal.Body>
