@@ -20,7 +20,7 @@ export const authSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
-    // Add any other reducers as needed
+    
   },
 });
 

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserId } from '../features/userSlice'; // Import setUserId action
-import { createWorkspace } from '../api/workspaceApi'; // Import your workspace creation API function
-import { selectUserId } from '../features/userSlice'; // Import the selectUserId selector from your Redux store
+import { setUserId } from '../features/userSlice'; 
+import { createWorkspace } from '../api/workspaceApi'; 
+import { selectUserId } from '../features/userSlice'; 
 
 function AddWorkspaceModal({ show, handleClose }) {
   const dispatch = useDispatch();
@@ -17,14 +17,14 @@ function AddWorkspaceModal({ show, handleClose }) {
       const newWorkspace = {
         name: workspaceName,
         owner: userId, // Set owner to userId from Redux
-        users: [], // You can add users here if needed
+        users: [], 
         api: api, // Set the API value from state
       };
 
-      // Call your API function to create the workspace
+      // Call API function to create the workspace
       const response = await createWorkspace(newWorkspace);
 
-      // Dispatch the userId to Redux (if needed)
+      // Dispatch the userId to Redux
       dispatch(setUserId(userId));
 
       // Close the modal

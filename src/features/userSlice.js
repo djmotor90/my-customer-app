@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   userData: null, // Store user data here
-  loading: false, // Add loading state if needed
+  loading: false, // Add loading state
 };
 
 export const userSlice = createSlice({

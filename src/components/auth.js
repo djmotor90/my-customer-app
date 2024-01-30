@@ -1,6 +1,6 @@
 // auth.js (authentication service)
 import axios from 'axios';
-import { setLogin } from '../features/authSlice'; // Replace with the actual path
+import { setLogin } from '../features/authSlice';
 
 export const login = async (dispatch, credentials) => {
   try {
@@ -21,5 +21,3 @@ export const logout = async (dispatch) => {
     console.error('Error logging out:', error);
   }
 };
-
-// Removed isAuthenticated function as its logic will be handled by Redux

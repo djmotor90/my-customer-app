@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CustomNavbar from './Navbar.js';
+import CustomNavbar from '../navbar/Navbar.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserData } from '../features/userSlice'; // Import setUserData action
 
@@ -39,13 +39,13 @@ function Profile() {
     try {
       const config = {
         headers: {
-          'Authorization': `Bearer ${token}` // Corrected to use template literals
+          'Authorization': `Bearer ${token}`
         }
       };
   
       const response = await axios.put(`/api/users/${userId}`, updatedUserData, config);
       setIsEditMode(false);
-      dispatch(setUserData(response.data)); // Update userData in Redux store with the response data
+      dispatch(setUserData(response.data)); 
     } catch (error) {
       console.error('Error updating user data:', error);
     }

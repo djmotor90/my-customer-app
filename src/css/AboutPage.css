@@ -1,0 +1,13 @@
+/* AboutPage.css */
+
+/* Set the height of the about-page to 100vh (viewport height) */
+.about-page {
+    height: 100vh;
+    overflow: auto; /* Add overflow property to enable scrolling if content exceeds viewport height */
+  }
+  
+  /* Style for full-height content */
+  .full-height-content {
+    height: 100%; /* Make the content within the about-page occupy the full height */
+  }
+  

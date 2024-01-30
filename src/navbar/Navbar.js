@@ -73,15 +73,24 @@ function CustomNavbar() {
       console.error("Error creating workspace:", error);
     }
   };
-
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand href="#home">Your App Name</Navbar.Brand>
+      <Navbar.Brand href="/mainapp">
+        <img
+          src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/porSYcHGBSFWrvkh4ZWN8S1OSAPGIZ5pEWWWGGgeZMEVdZE-4BWu3rgKkDo5hyso/n/idjegt7oebz2/b/CPCP/o/CPwhite%20(500%20x%20300%20px).png"
+          alt="Logo"
+          width="200"
+          height="75"
+          className="d-inline-block align-top"
+        />{' '}
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link href="/mainapp">Home</Nav.Link>
-          <Nav.Link href="#about">About</Nav.Link>
+          {/* <Nav.Link href="#about">About</Nav.Link> */}
+          <Nav.Link href="/requests">My Requests</Nav.Link>
+          
           <NavDropdown title="Workspaces" id="basic-nav-dropdown">
             <NavDropdown.Item className="add-workspace-item" onClick={openAddWorkspaceModal}>
               Add Workspace
@@ -93,12 +102,12 @@ function CustomNavbar() {
               </NavDropdown.Item>
             ))}
           </NavDropdown>
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+          {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action1">Action 1</NavDropdown.Item>
             <NavDropdown.Item href="#action2">Action 2</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action3">Action 3</NavDropdown.Item>
-          </NavDropdown>
+          </NavDropdown> */}
           {userData && (
             <>
               <div className="username-text">

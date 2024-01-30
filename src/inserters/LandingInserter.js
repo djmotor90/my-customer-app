@@ -107,7 +107,7 @@ function LandingInserter() {
         </Col>
       </Row>
 
-      {/* Add more rows as needed */}
+    
     </Container>
   );
 }

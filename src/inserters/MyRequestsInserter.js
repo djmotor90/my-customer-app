@@ -6,8 +6,8 @@ function MyRequestInserter() {
   const [clickUpData, setClickUpData] = useState([]);
 
   useEffect(() => {
-    // Fetch data from the ClickUp API or your chosen data source
-    axios.get('/api/clickup-data') // Replace with your API endpoint
+    // Fetch data from the ClickUp API
+    axios.get('/api/clickup-data') // Replace with  API endpoint
       .then((response) => {
         setClickUpData(response.data);
       })

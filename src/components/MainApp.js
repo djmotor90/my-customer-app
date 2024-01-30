@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import CustomNavbar from './Navbar.js';
+import CustomNavbar from '../navbar/Navbar.js';
 import { setUserData, setLoading } from '../features/userSlice'; // Import actions from userSlice
 
 function MainApp() {

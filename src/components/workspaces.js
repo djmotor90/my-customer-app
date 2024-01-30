@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Modal, Button, Form, ListGroup } from 'react-bootstrap';
-import CustomNavbar from './Navbar.js';
+import CustomNavbar from '../navbar/Navbar.js';
 import '../css/workspace.css';
 
 function Workspace() {
@@ -182,7 +182,7 @@ function Workspace() {
       fetchWorkspaces();
     } catch (error) {
       console.error("Error creating workspace:", error);
-      // Handle the error appropriately, e.g., show an error message to the user
+     
     }
   };
 
