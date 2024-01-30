@@ -9,17 +9,20 @@ import CustomNavbar from './navbar/Navbar.js';
 import Workspaces from './components/workspaces.js';
 import MyRequests from './components/MyRequests.js';
 import AboutUs from './components/AboutUs.js';
+import ContactUs from './components/ContactUs.js';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/about" element={<AboutUs />}/>
+      <Route path="/contact" element={<ContactUs />}/>
       <Route path="/mainapp/*" element={<CustomNavbar />} />
       <Route path="/mainapp" element={<PrivateRoute element={<MainApp />} />} />
       <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
       <Route path="/workspaces" element={<PrivateRoute element={<Workspaces />} />} />
       <Route path="/myrequests" element={<PrivateRoute element={<MyRequests />} />} />
+      
 
     </Routes>
   );

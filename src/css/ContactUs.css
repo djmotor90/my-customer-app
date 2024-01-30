@@ -1,0 +1,28 @@
+/* ContactUs.css */
+
+.contact-us-container {
+    margin-top: 80px;
+    height: 100vh;
+    overflow: auto;
+  }
+  
+  .contact-us h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .contact-us form {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-us form label {
+    font-weight: 600;
+  }
+  
+  .contact-us form button {
+    margin-top: 10px;
+  }
+  
