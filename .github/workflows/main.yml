@@ -18,12 +18,7 @@ jobs:
           script: |
             cd my-customer-app &&
             git pull &&
-            PROXY="${{ secrets.PROXY }}" &&
-            if [ -x "$(command -v jq)" ]; then
-              jq '.proxy = env.PROXY' package.json > package.json.tmp && mv package.json.tmp package.json
-            else
-              echo "jq is not installed. Cannot update proxy."
-              exit 1
-            fi &&
+            PROXY_URL="${{ secrets.PROXY }}" &&
+            sed -i "s|\"proxy\": \".*\",|\"proxy\": \"$PROXY_URL\",|" package.json &&
             npm install &&
             pm2 reload my-customer-app || pm2 start npm -- start --name my-customer-app --watch
