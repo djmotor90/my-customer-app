@@ -104,7 +104,7 @@ function CustomNavbar() {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link href="/mainapp">Home</Nav.Link>
-          <Nav.Link href="/requests">My Requests</Nav.Link>
+          <Nav.Link href="/myrequests">My Requests</Nav.Link>
           <NavDropdown title="Workspaces" id="basic-nav-dropdown">
             <NavDropdown.Item className="add-workspace-item" onClick={openAddWorkspaceModal}>
               Add Workspace
