@@ -15,3 +15,9 @@
     background-color: green;
     color: white; 
   }
+  
+  .selected-workspace {
+    background-color: red !important; /* Change the background color to red */
+    color: white !important; /* Change the text color to white */
+    font-weight: bold; /* Make the text bold */
+  }

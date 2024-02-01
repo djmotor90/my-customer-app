@@ -17,7 +17,9 @@ function CustomNavbar() {
   const [newWorkspaceName, setNewWorkspaceName] = useState('');
   const [newWorkspaceApi, setNewWorkspaceApi] = useState('');
   const [newWorkspaceListId, setNewWorkspaceListId] = useState('');
+  const selectedWorkspaceId = useSelector((state) => state.workspace.selectedWorkspaceId);
   const navigate = useNavigate(); // Use useNavigate
+  
 
   const fetchWorkspaces = useCallback(async () => {
     try {
@@ -112,6 +114,7 @@ function CustomNavbar() {
               <NavDropdown.Item
                 key={workspace._id}
                 onClick={() => handleWorkspaceClick(workspace._id)}
+                className={workspace._id === selectedWorkspaceId ? 'selected-workspace' : ''}
               >
                 {workspace.name}
               </NavDropdown.Item>
