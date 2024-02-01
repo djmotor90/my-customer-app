@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLogin, setUserId, setToken } from '../features/authSlice';
 import axios from 'axios';
 import '../css/Navbar.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
+import { setWorkspaceId } from '../features/workspaceSlice';
 
 function CustomNavbar() {
   const dispatch = useDispatch();
@@ -14,7 +16,8 @@ function CustomNavbar() {
   const [showAddWorkspaceModal, setShowAddWorkspaceModal] = useState(false);
   const [newWorkspaceName, setNewWorkspaceName] = useState('');
   const [newWorkspaceApi, setNewWorkspaceApi] = useState('');
-  const [newWorkspaceListId, setNewWorkspaceListId] = useState(''); // Add state for listId
+  const [newWorkspaceListId, setNewWorkspaceListId] = useState('');
+  const navigate = useNavigate(); // Use useNavigate
 
   const fetchWorkspaces = useCallback(async () => {
     try {
@@ -45,7 +48,7 @@ function CustomNavbar() {
     setShowAddWorkspaceModal(false);
     setNewWorkspaceName('');
     setNewWorkspaceApi('');
-    setNewWorkspaceListId(''); // Reset listId field
+    setNewWorkspaceListId('');
   };
 
   const handleAddWorkspaceInputChange = (e, field) => {
@@ -53,7 +56,7 @@ function CustomNavbar() {
       setNewWorkspaceName(e.target.value);
     } else if (field === 'api') {
       setNewWorkspaceApi(e.target.value);
-    } else if (field === 'listId') { // Handle input for listId
+    } else if (field === 'listId') {
       setNewWorkspaceListId(e.target.value);
     }
   };
@@ -65,18 +68,23 @@ function CustomNavbar() {
         owner: userId,
         users: [userId],
         api: newWorkspaceApi,
-        listId: newWorkspaceListId, // Include listId in the new workspace object
+        listId: newWorkspaceListId,
       }, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
 
       console.log("Workspace created:", response.data);
-      
+
       closeAddWorkspaceModal();
       fetchWorkspaces();
     } catch (error) {
       console.error("Error creating workspace:", error);
     }
+  };
+
+  const handleWorkspaceClick = (workspaceId) => {
+    dispatch(setWorkspaceId(workspaceId));
+    navigate('/myrequests'); // Use navigate to redirect
   };
 
   return (
@@ -94,26 +102,21 @@ function CustomNavbar() {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link href="/mainapp">Home</Nav.Link>
-          {/* <Nav.Link href="#about">About</Nav.Link> */}
           <Nav.Link href="/requests">My Requests</Nav.Link>
-          
           <NavDropdown title="Workspaces" id="basic-nav-dropdown">
             <NavDropdown.Item className="add-workspace-item" onClick={openAddWorkspaceModal}>
               Add Workspace
             </NavDropdown.Item>
             <NavDropdown.Divider />
             {workspaces.map((workspace) => (
-              <NavDropdown.Item key={workspace._id} href={`/workspace/${workspace._id}`}>
+              <NavDropdown.Item
+                key={workspace._id}
+                onClick={() => handleWorkspaceClick(workspace._id)}
+              >
                 {workspace.name}
               </NavDropdown.Item>
             ))}
           </NavDropdown>
-          {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action1">Action 1</NavDropdown.Item>
-            <NavDropdown.Item href="#action2">Action 2</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action3">Action 3</NavDropdown.Item>
-          </NavDropdown> */}
           {userData && (
             <>
               <div className="username-text">
@@ -151,7 +154,7 @@ function CustomNavbar() {
               onChange={(e) => handleAddWorkspaceInputChange(e, 'api')}
             />
           </Form.Group>
-          <Form.Group controlId="newWorkspaceListId"> {/* Input field for listId */}
+          <Form.Group controlId="newWorkspaceListId">
             <Form.Label>List ID</Form.Label>
             <Form.Control
               type="text"
