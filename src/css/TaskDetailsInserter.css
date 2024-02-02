@@ -29,3 +29,108 @@ Specific to TaskDetailsInserter to avoid global style conflicts
     flex: 1; /* Distribute available space evenly between task-card-body elements */
     margin-right: 10px; /* Adjust spacing between the elements */
   }
+
+  /* Chat container CSS */
+.chat-container {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 80%;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  /* Left and right chat messages */
+  .chat-left {
+    background-color: #f0f0f0;
+    text-align: left;
+    margin-left: auto;
+  }
+  
+  .chat-right {
+    background-color: #e0e0e0;
+    text-align: left;
+    margin-right: auto;
+  }
+  
+  /* Clear both after each chat message */
+  .chat-container:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+ 
+  .attachment-icon {
+    font-size: 66px; /* Adjust the size to make it bigger */
+    margin-top: 20px;
+  }
+  
+
+
+/* CSS for the chat comment container */
+.chat-comment {
+    display: flex;
+    flex-direction: column; /* Display comments and attachments vertically */
+    color: blue;
+  }
+  
+  /* CSS for the text comment */
+.comment-text {
+    color: black;
+    /* Remove any white-space properties that prevent line breaks */
+  }
+  
+  /* CSS for the attachment previews container */
+  .attachment-previews {
+    display: flex;
+    flex-wrap: wrap; /* Allow attachment previews to wrap to the next line */
+    align-items: center; /* Vertically center attachments */
+    justify-content: flex-start; /* Align attachments to the start of the container */
+    margin-top: 20px; /* Add spacing between rows of attachments */
+}
+  
+  /* CSS for the attachment previews */
+.attachment-preview {
+    flex: 0 0 auto; /* Allow attachments to have their original width */
+    width: 100px; /* Set a fixed width for square attachments (adjust as needed) */
+    height: 100px; /* Set a fixed height for square attachments (adjust as needed) */
+    margin-right: 30px; /* Add spacing between attachments */
+    margin-bottom: 20px; /* Add spacing between rows of attachments */
+}
+  
+  /* Clear both after every attachment preview to prevent wrapping */
+  .attachment-preview:not(:last-child) {
+    margin-right: 10px;
+    clear: none;
+  }
+  /* CSS for the attachment titles */
+.attachment-title {
+    /* Limit the width of the title container to a specific length */
+    max-width: 110px; /* Adjust the value as needed */
+  
+    /* Add ellipsis (...) at the end of the title if it exceeds the container width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 20px;
+  }
+  
+  /* Add styles for the "Load More Comments" button */
+.load-more-button {
+    background-color: #007BFF; /* Choose a background color */
+    color: white; /* Choose a text color */
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px; /* Adjust the margin as needed */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+  }
+  
+  .load-more-button:hover {
+    background-color: #0056b3; /* Change the background color on hover */
+  }
+  
