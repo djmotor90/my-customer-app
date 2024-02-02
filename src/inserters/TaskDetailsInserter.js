@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import '../css/TaskDetailsInserter.css'; // Import CSS for styling
 
 function TaskDetailsInserter() {
   const { taskId } = useParams(); // Get the taskId from the route parameters
@@ -11,6 +12,7 @@ function TaskDetailsInserter() {
   const userId = useSelector((state) => state.auth.userId); // Get userId from Redux
   const [workspaceData, setWorkspaceData] = useState(null);
   const [userEmail, setUserEmail] = useState(null); // Create a userEmail state
+  
 
   useEffect(() => {
     const fetchWorkspaceDetails = async () => {
@@ -70,18 +72,39 @@ function TaskDetailsInserter() {
     fetchTaskDetails();
   }, [taskId, workspaceData]);
 
-  return (
-    <div>
-      {taskDetails && (
-        <div>
-          <p>Task Name: {taskDetails.name}</p>
-          <p>Description: {taskDetails.description}</p>
-          <p>User Email: {userEmail}</p> {/* Display the userEmail */}
-          {/* Add more task details here */}
-        </div>
-      )}
-    </div>
-  );
+  const descriptionParagraphs = taskDetails?.description 
+    ? taskDetails.description.split('\n').map((paragraph, index) => (<p key={index} className="task-description-paragraph">{paragraph}</p>)) 
+    : 'No description available.';
+
+    return (
+      <div className="task-details-inserter-container">
+        {taskDetails && (
+          <div className="task-card">
+            <div className="task-card-header">
+              <h5 className="task-title">{taskDetails.name}</h5>
+              
+            </div>
+            <div className="task-card-bodies-container">
+              {/* Existing task-card-body */}
+              <div className="task-card-body">
+                <h4 className="task-subtitle">Description</h4>
+                <div className="task-description">{descriptionParagraphs}</div>
+              </div>
+              {/* New task-card-body */}
+              <div className="task-card-body">
+                <h4 className="task-subtitle">Additional Information</h4>
+                
+                <div className="task-description">
+                <span className="user-email">{userEmail}</span>
+                  {/* Add content for the new task-card-body here */}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+    
 }
 
 export default TaskDetailsInserter;

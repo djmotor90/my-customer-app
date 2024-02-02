@@ -1,0 +1,31 @@
+Specific to TaskDetailsInserter to avoid global style conflicts
+.task-details-inserter-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .task-details-inserter-container .task-description {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .task-description-paragraph {
+    line-height: 1.1;
+
+  }
+
+  .task-card-bodies-container {
+    display: flex; /* Use flexbox to arrange elements side by side */
+  }
+  
+  .task-card-body {
+    flex: 1; /* Distribute available space evenly between task-card-body elements */
+    margin-right: 10px; /* Adjust spacing between the elements */
+  }
