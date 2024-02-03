@@ -123,6 +123,9 @@ function renderCommentText(commentText, fileUrls = []) {
     filteredText = filteredText.replace(url, '');
   });
 
+  filteredText = filteredText.replace(`From: ${userEmail}`, '');
+
+
   const lines = filteredText.split('\n');
   const filteredLines = lines.filter(line => !line.includes('chunkbase') && line.trim() !== '');
 
