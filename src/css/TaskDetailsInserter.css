@@ -66,6 +66,7 @@ Specific to TaskDetailsInserter to avoid global style conflicts
   .attachment-icon {
     font-size: 66px; /* Adjust the size to make it bigger */
     margin-top: 20px;
+    margin-right: 20px;
   }
   
 
@@ -134,3 +135,135 @@ Specific to TaskDetailsInserter to avoid global style conflicts
     background-color: #0056b3; /* Change the background color on hover */
   }
   
+  /* CSS for the send message form */
+.send-message-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  .send-message-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 5px;
+    resize: vertical;
+  }
+  
+  .send-message-form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 5px;
+  }
+  
+  .send-message-form button[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .send-message-form button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+
+
+
+
+  /* CSS for the rendered image elements */
+.comment-image {
+    max-width: 50%; /* Ensure images don't exceed their container width */
+    height: auto; /* Automatically adjust the height while maintaining aspect ratio */
+    margin: 10px 0; /* Add margin around images (adjust as needed) */
+    border: 2px solid #ccc; /* Add a border to images (adjust as needed) */
+    /* Add any other styles you want to apply to the images */
+  }
+  
+
+
+
+
+
+
+
+  /* CSS for the attachment previews container */
+/* Adjustments for images and download links */
+.images-and-links, .image-links-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+  
+.image-link-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+  
+  /* Clear both after every attachment preview to prevent wrapping */
+  .image-link-container:not(:last-child) {
+    margin-right: 10px;
+    clear: none;
+  }
+  
+  /* CSS for the attachment titles */
+  .attachment-title {
+    /* Limit the width of the title container to a specific length */
+    max-width: 110px; /* Adjust the value as needed */
+  
+    /* Add ellipsis (...) at the end of the title if it exceeds the container width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 20px;
+  }
+  
+  .comment-image {
+    max-width: 100%; /* Adjust this as needed for image sizes */
+    height: auto;
+    margin-bottom: 10px; /* Spacing between the image and the download link */
+}
+  
+  /* a {
+    text-align: center;
+    display: block; 
+  }
+   */
+
+   .download-link {
+    text-align: center;
+}
+
+.image-container {
+    width: 100px; /* Set the desired square size */
+    height: 100px; /* Ensure the height equals the width to create a square */
+    overflow: hidden; /* Hide parts of the image that exceed the container size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 10px;
+    
+  }
