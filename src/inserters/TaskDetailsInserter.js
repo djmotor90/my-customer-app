@@ -16,8 +16,7 @@ function TaskDetailsInserter() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [canLoadMore, setCanLoadMore] = useState(true);
   const [newCommentText, setNewCommentText] = useState('');
-  const [newCommentFile, setNewCommentFile] = useState(null);
-
+  const [newCommentFiles, setNewCommentFiles] = useState([]);
   // Fetch Workspace Details
   useEffect(() => {
     const fetchWorkspaceDetails = async () => {
@@ -75,7 +74,7 @@ function TaskDetailsInserter() {
   useEffect(() => {
     // Initial Fetch for Chat Messages
     fetchChatMessages();
-  }, [taskId, workspaceData]);
+  }, [taskId, workspaceData, ]);
 
   const fetchChatMessages = async (loadMore = false) => {
     if (!workspaceData || !workspaceData.api || (loadingMore && !loadMore) || !canLoadMore) return;
@@ -111,7 +110,7 @@ function extractUrls(text) {
 }
 
 function isFileUrl(url) {
-  const fileExtensions = /\.(jpg|jpeg|png|gif|csv|docx|pdf|mp4|mp3|doc|docm|dotx|dotm|xls|xlsx|xlsm|xlsb|ppt|pptx|pptm|pps|ppsx|ppsm|odt|odp|ods|pdf|ai|psd|indd|zip|rar|txt|html|css|js|py)$/i;
+  const fileExtensions = /\.(jpg|jpeg|png|gif|csv|docx|pdf|mp4|mp3|doc|docm|dotx|dotm|xls|xlsx|xlsm|xlsb|ppt|pptx|pptm|pps|ppsx|ppsm|odt|odp|ods|pdf|ai|psd|indd|zip|rar|txt|html|css|js|py|pkg|exe|msi)$/i;
   return fileExtensions.test(url);
 }
 
@@ -207,22 +206,23 @@ function renderCommentWithImagesAndText(commentText) {
   };
 
   const handleCommentFileChange = (e) => {
-    setNewCommentFile(e.target.files[0]);
+    const selectedFiles = e.target.files;
+    setNewCommentFiles([...newCommentFiles, ...selectedFiles]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (newCommentText.trim() || newCommentFile) {
+  
+    if (newCommentText.trim() || newCommentFiles.length > 0) {
       console.log(workspaceData.api);
-      const formData = new FormData();
-      formData.append('comment_text', newCommentText);
-
-      if (newCommentFile) {
-        formData.append('attachment', newCommentFile);
-
-        try {
-          // Upload attachment first and get its ID
+      try {
+        const attachmentUrls = [];
+  
+        for (const file of newCommentFiles) {
+          const formData = new FormData();
+          formData.append('attachment', file);
+  
+          // Upload attachment and get its ID
           const attachmentResponse = await axios.post(
             `https://api.clickup.com/api/v2/task/${taskId}/attachment`,
             formData,
@@ -230,52 +230,51 @@ function renderCommentWithImagesAndText(commentText) {
               headers: { Authorization: workspaceData.api, 'Content-Type': 'multipart/form-data' },
             }
           );
-            console.log(attachmentResponse.data.url)
-          // Create a comment with the attachment ID
-          const commentText = `From: ${userEmail}\n\nMessage:\n${newCommentText}\n\nAttachments:\n${attachmentResponse.data.url}`;
-
-          const commentData = {
-            comment_text: commentText,
-          };
-          
-            console.log(commentData)
-          await axios.post(`https://api.clickup.com/api/v2/task/${taskId}/comment`, commentData, {
-            headers: { Authorization: workspaceData.api },
-          });
-
-          // After posting a comment with an attachment, refresh the chat messages
-          fetchChatMessages();
-          setNewCommentText('');
-          setNewCommentFile(null);
-        } catch (error) {
-          console.error('Failed to post comment with attachment:', error);
+  
+          attachmentUrls.push(attachmentResponse.data.url);
         }
-      } else {
-        // If no attachment, post a regular comment
-        try {
-          await axios.post(`https://api.clickup.com/api/v2/task/${taskId}/comment`, formData, {
-            headers: { Authorization: workspaceData.api, 'Content-Type': 'application/json' },
-          });
-
-          // After posting a comment, refresh the chat messages
-          fetchChatMessages();
-          setNewCommentText('');
-        } catch (error) {
-          console.error('Failed to post comment:', error);
-        }
+  
+        // Create a single comment with all attachment URLs
+        const commentText = `From: ${userEmail}\n\n\n${newCommentText}\n${attachmentUrls.join('\n')}`;
+        const commentData = {
+          comment_text: commentText,
+        };
+  
+        // Post the comment with all attachment URLs
+        await axios.post(`https://api.clickup.com/api/v2/task/${taskId}/comment`, commentData, {
+          headers: { Authorization: workspaceData.api },
+        });
+  
+        // After posting the comment, refresh the chat messages
+        fetchChatMessages();
+  
+        // Reset the form state
+        setNewCommentText('');
+        setNewCommentFiles([]);
+  
+        // Clear the file input field
+        document.getElementById('fileInput').value = '';
+      } catch (error) {
+        console.error('Failed to post comment with attachment:', error);
       }
     }
   };
 
+
+
+
+  //Chat Bubble
   const chatBubbles = chatMessages
   .filter((message) => !message.comment_text.toLowerCase().includes('//private//'))
+
+  
   .map((message, index) => (
     <div
       key={message.id}
       className={`chat-container ${index % 2 === 0 ? 'chat-left' : 'chat-right'}`}
     >
       <div className="chat-comment">
-        <div className="comment-user">{message.user.username}</div>
+        <div className="comment-user">System Message 💬</div>
         <div className="comment-text">
           {renderCommentWithImagesAndText(message.comment_text, message.comment)}
         </div>
@@ -314,7 +313,7 @@ function renderCommentWithImagesAndText(commentText) {
   ));
 
 
-
+//RETURN OF THE PAGE
 
   return (
     <div className="task-details-inserter-container">
@@ -325,18 +324,18 @@ function renderCommentWithImagesAndText(commentText) {
           </div>
           <div className="task-card-bodies-container">
             <div className="task-card-body">
-              <h4 className="task-subtitle">Description</h4>
+              <h4 className="task-subtitle">Description 📖</h4>
               <div className="task-description">{renderCommentText(taskDetails.description)}</div>
             </div>
             <div className="task-card-body">
-              <h4 className="task-subtitle">Additional Information</h4>
+              <h4 className="task-subtitle">Additional Information ℹ️</h4>
               <div className="task-description">
                 <span className="user-email">{userEmail}</span>
               </div>
             </div>
           </div>
           <div className="task-chat-body">
-            <h4 className="task-subtitle">Chat</h4>
+            <h4 className="task-subtitle-chat">Chat 💬</h4>
             {chatBubbles}
             {canLoadMore && (
               <button onClick={() => fetchChatMessages(true)} className="load-more-button" disabled={loadingMore}>
@@ -346,7 +345,7 @@ function renderCommentWithImagesAndText(commentText) {
 
             <form onSubmit={handleSubmit} className="send-message-form">
               <textarea value={newCommentText} onChange={handleCommentTextChange} placeholder="Write your comment here..."></textarea>
-              <input type="file" onChange={handleCommentFileChange} />
+              <input type="file" onChange={handleCommentFileChange} multiple />
               <button type="submit">Send</button>
             </form>
           </div>

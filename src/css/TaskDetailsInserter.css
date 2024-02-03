@@ -40,7 +40,9 @@ Specific to TaskDetailsInserter to avoid global style conflicts
     border: 1px solid rgba(255, 255, 255, 0.18);
     width: 80%;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
   
   /* Left and right chat messages */
@@ -48,12 +50,14 @@ Specific to TaskDetailsInserter to avoid global style conflicts
     background-color: #f0f0f0;
     text-align: left;
     margin-left: auto;
+    padding-left: 20px;
   }
   
   .chat-right {
     background-color: #e0e0e0;
     text-align: left;
     margin-right: auto;
+    padding-left: 20px;
   }
   
   /* Clear both after each chat message */
@@ -143,29 +147,46 @@ Specific to TaskDetailsInserter to avoid global style conflicts
     margin-top: 20px;
     padding: 20px;
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 2px solid rgba(11, 10, 10, 0.18);
     width: 80%;
     max-width: 600px;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
   }
   
+  /* Style the placeholder text for input elements */
+input::placeholder {
+    color: white; /* Change the text color */
+    font-style: italic; /* Add italic style */
+    /* Add other styles as needed */
+  }
+
+  textarea::placeholder {
+    color: white; /* Change the text color */
+    font-style: italic; /* Add italic style */
+    /* Add other styles as needed */
+  }
+
   .send-message-form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(70, 69, 69, 0.783);
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 5px;
     resize: vertical;
+    color: white;
   }
   
   .send-message-form input[type="file"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(70, 69, 69, 0.783);
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 5px;
   }
@@ -178,6 +199,7 @@ Specific to TaskDetailsInserter to avoid global style conflicts
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+   
   }
   
   .send-message-form button[type="submit"]:hover {
@@ -267,3 +289,11 @@ Specific to TaskDetailsInserter to avoid global style conflicts
     margin-left: 10px;
     
   }
+.task-subtitle-chat{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.task-subtitle{
+    margin-top: 50px;
+}
