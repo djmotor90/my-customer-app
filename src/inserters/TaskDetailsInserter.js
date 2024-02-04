@@ -216,6 +216,7 @@ function renderCommentWithImagesAndText(commentText) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     if (newCommentText.trim() || newCommentFiles.length > 0) {
       setIsSubmitting(true);

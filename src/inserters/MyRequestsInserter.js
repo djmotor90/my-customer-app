@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import '../css/myrequestinserter.css'; // Ensure you have this CSS import
 
 function MyRequestInserter() {
   const [workspaceData, setWorkspaceData] = useState(null);
@@ -12,27 +13,23 @@ function MyRequestInserter() {
   const [tasks, setTasks] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [currentTab, setCurrentTab] = useState('open'); // 'open' or 'closed'
   const navigate = useNavigate(); // Use useNavigate to navigate to pages
 
   useEffect(() => {
     const fetchWorkspaceDetails = async () => {
       try {
-        if (selectedWorkspaceId) {
+        if (selectedWorkspaceId && token) {
           const response = await axios.get(`/api/workspace/space/${selectedWorkspaceId}`, {
             headers: { 'Authorization': `Bearer ${token}` },
           });
-          const workspaceDetails = response.data;
-          setWorkspaceData(workspaceDetails);
+          setWorkspaceData(response.data);
         }
       } catch (error) {
         console.error('Error fetching workspace details:', error);
       }
     };
 
-    fetchWorkspaceDetails();
-  }, [selectedWorkspaceId, token, refresh]);
-
-  useEffect(() => {
     const fetchUserEmail = async () => {
       try {
         if (userId && token) {
@@ -46,30 +43,33 @@ function MyRequestInserter() {
       }
     };
 
+    fetchWorkspaceDetails();
     fetchUserEmail();
-  }, [userId, token, refresh]);
+  }, [selectedWorkspaceId, token, userId, refresh]);
+
+
+ 
+
+  
 
   useEffect(() => {
+    // body of the queary
+    const query = new URLSearchParams({
+      include_closed: 'true',
+    }).toString();
     const fetchTasks = async () => {
       try {
-        if (workspaceData && workspaceData.api && workspaceData.listId) {
+        if (workspaceData && workspaceData.api && workspaceData.listId && userEmail) {
           setLoading(true);
           const response = await axios.get(
-            `https://api.clickup.com/api/v2/list/${workspaceData.listId}/task`,
+            `https://api.clickup.com/api/v2/list/${workspaceData.listId}/task?${query}`,
             {
               headers: {
                 'Authorization': workspaceData.api,
               },
             }
           );
-          const taskList = response.data.tasks.filter((task) => {
-            return (
-              task.custom_fields &&
-              task.custom_fields.length > 0 &&
-              task.custom_fields[0].name === 'User Email' &&
-              task.custom_fields[0].value === userEmail
-            );
-          });
+          const taskList = response.data.tasks.filter((task) => task.custom_fields && task.custom_fields.length > 0 && task.custom_fields.some(field => field.name === 'User Email' && field.value === userEmail));
           setTasks(taskList);
         }
       } catch (error) {
@@ -79,62 +79,68 @@ function MyRequestInserter() {
       }
     };
 
-    fetchTasks();
+    if (workspaceData && userEmail) {
+      fetchTasks();
+    }
   }, [workspaceData, userEmail, refresh]);
 
   const handleRefresh = () => {
     setRefresh(!refresh);
   };
 
-  // Define a function to handle task name click and navigate to a specific page
   const handleTaskNameClick = (taskId) => {
-    // You can replace '/task-details' with the actual path you want to navigate to
     navigate(`/task-details/${taskId}`);
   };
 
   return (
     <div>
-      <h2>My Workspace Details</h2>
+      <h2>Workspace - {workspaceData.name}</h2>
       {workspaceData && (
         <div>
-          <p>Selected Workspace ID: {selectedWorkspaceId}</p>
-          <p>User Email: {userEmail}</p>
-          <p>Workspace Name: {workspaceData.name}</p>
           <p>Owner: {workspaceData.owner}</p>
-          <p>Users: {workspaceData.users.join(', ')}</p>
-          <p>API Key: {workspaceData.api}</p>
-          <p>List ID: {workspaceData.listId}</p>
         </div>
       )}
 
       <button className="refresh-button" onClick={handleRefresh} disabled={loading}>
-        {loading ? 'Refreshing...' : 'Refresh'} {/* Display 'Refreshing...' when loading is true */}
+        {loading ? 'Refreshing...' : 'Refresh'}
       </button>
 
       {loading && <div className="loading-spinner">Loading...</div>}
 
-      <h2 className="ticket-system-title">Tasks</h2>
-<ul className="ticket-list">
-  {tasks.map((task) => (
-    <li key={task.id} className="ticket">
-      <div className="ticket-header">
-        <span
-          className="clickable-task-name" // Add a CSS class for styling
-          onClick={() => handleTaskNameClick(task.id)} // Handle click on task name
+      <div className="tabs">
+        <button
+          className={`tab-button ${currentTab === 'open' ? 'active' : ''}`}
+          onClick={() => setCurrentTab('open')}
         >
-          {task.name}
-        </span>
-        <span className={`ticket-status ${task.status.type.toLowerCase()}`}>
-          {task.status.status}
-        </span>
+          Open Tasks
+        </button>
+        <button
+          className={`tab-button ${currentTab === 'closed' ? 'active' : ''}`}
+          onClick={() => setCurrentTab('closed')}
+        >
+          Closed Tasks
+        </button>
       </div>
-      <div className="ticket-details">
-        <strong>Status:</strong> {task.status.status}
-      </div>
-    </li>
-  ))}
-</ul>
 
+      <ul className="ticket-list">
+        {tasks
+          .filter((task) => (currentTab === 'open' ? task.status.status === 'Open' : task.status.status === 'Closed'))
+          .map((task) => (
+            <li key={task.id} className="ticket">
+              <div className="ticket-header">
+                <span className="clickable-task-name" onClick={() => handleTaskNameClick(task.id)}>
+                  {task.name}
+                </span>
+                <span className={`ticket-status ${task.status.type.toLowerCase()}`}>
+                  {task.status.status}
+                </span>
+              </div>
+              <div className="ticket-details">
+                <strong>Status:</strong> {task.status.status}
+              </div>
+            </li>
+          ))}
+      </ul>
     </div>
   );
 }
