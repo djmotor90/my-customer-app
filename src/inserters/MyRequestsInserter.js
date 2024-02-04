@@ -94,10 +94,16 @@ function MyRequestInserter() {
 
   return (
     <div>
-      <h2>Workspace - {workspaceData.name}</h2>
+      <h2>My Workspace Details</h2>
       {workspaceData && (
         <div>
+          {/* <p>Selected Workspace ID: {selectedWorkspaceId}</p>
+          <p>User Email: {userEmail}</p>
+          <p>Workspace Name: {workspaceData.name}</p>
           <p>Owner: {workspaceData.owner}</p>
+          <p>Users: {workspaceData.users.join(', ')}</p>
+          <p>API Key: {workspaceData.api}</p>
+          <p>List ID: {workspaceData.listId}</p> */}
         </div>
       )}
 

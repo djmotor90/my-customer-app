@@ -1,3 +1,111 @@
+.workspace-body {
+    background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    
+
+  }
+/* THIS CREATES ISSUES */
+
+
 .new-workspace {
 margin-left: 50px;
 }
+
+/* General Styles */
+body {
+    background-color: #f4f4f4; 
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+  }
+  
+  /* Workspace List and Items */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .workspace-li {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    margin: 10px auto;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  li:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Workspace Details Styling */
+  .workspace-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  /* Buttons Styling */
+  .new-workspace, .btn-success, .btn-danger {
+    margin: 5px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .btn-success {
+    background-color: #4CAF50; /* Green */
+  }
+  
+  .btn-danger {
+    background-color: #f44336; /* Red */
+  }
+  
+  .new-workspace {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 200px;
+    text-align: center;
+    margin: 20px auto;
+  }
+  
+  /* Modal Styling */
+  .modal-header, .modal-footer {
+    border-bottom: none; /* Remove default borders */
+    border-top: none;
+  }
+  
+  .modal-body {
+    padding-top: 0;
+  }
+  
+  .modal-content {
+    border-radius: 15px; /* Rounded corners for modal */
+  }
+  
+  /* Form Input Styling */
+  .form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+  }
+  
+  /* Custom button styles for modal actions */
+  .buttoneditdelete {
+    background-color: #007bff; /* Blue */
+    color: white;
+    &:hover {
+      background-color: darken(#007bff, 10%);
+    }
+  }
+  
+  /* Additional styles can be added as needed */
+  

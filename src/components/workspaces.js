@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Modal, Button, Form, ListGroup } from 'react-bootstrap';
 import CustomNavbar from '../navbar/Navbar.js';
 import '../css/workspace.css';
+import Footer from '../footer/GlobalFooter_mainapp.js'
 
 function Workspace() {
   // State management for various component functionalities
@@ -239,8 +240,9 @@ function Workspace() {
   };
 
   return (
-    <div>
+    <div className ='workspace-body'>
       <CustomNavbar />
+      <div>
       <h1>Your Workspaces</h1>
       {error && <p className="error">{error}</p>}
       {/* Button to open the "Add Workspace" modal */}
@@ -252,7 +254,7 @@ function Workspace() {
     const isOwner = workspace.owner === userId;
 
     return (
-      <li key={workspace._id}>
+      <li className='workspace-li' key={workspace._id}>
         {/* Conditionally renders the edit modal for the selected workspace */}
         {isEditMode && editWorkspaceId === workspace._id ? (
           <Modal show={showModal} onHide={() => setIsEditMode(false)}>
@@ -328,6 +330,7 @@ function Workspace() {
                 <button onClick={() => handleDeleteClick(workspace._id)} className="btn btn-danger">Delete</button>
               </>
             )}
+            
           </div>
         )}
       </li>
@@ -391,8 +394,12 @@ function Workspace() {
           <Button className='buttoneditdelete' variant="danger" onClick={handleDeleteWorkspace}>Delete</Button>
         </Modal.Footer>
       </Modal>
+      
+    </div>
+    <Footer/>
     </div>
   );
+  
 }
 
 export default Workspace;
