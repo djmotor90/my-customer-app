@@ -110,7 +110,7 @@ function extractUrls(text) {
 }
 
 function isFileUrl(url) {
-  const fileExtensions = /\.(jpg|jpeg|png|gif|csv|docx|pdf|mp4|mp3|doc|docm|dotx|dotm|xls|xlsx|xlsm|xlsb|ppt|pptx|pptm|pps|ppsx|ppsm|odt|odp|ods|pdf|ai|psd|indd|zip|rar|txt|html|css|js|py|pkg|exe|msi)$/i;
+  const fileExtensions = /\.(jpg|jpeg|png|gif|csv|docx|pdf|mp4|mp3|doc|docm|dotx|dotm|xls|xlsx|xlsm|xlsb|ppt|pptx|pptm|pps|ppsx|ppsm|odt|odp|ods|pdf|ai|psd|indd|zip|rar|txt|html|css|js|py|pkg|exe|msi|webp)$/i;
   return fileExtensions.test(url);
 }
 
@@ -212,20 +212,15 @@ function renderCommentWithImagesAndText(commentText) {
     const selectedFiles = e.target.files;
     setNewCommentFiles([...newCommentFiles, ...selectedFiles]);
   };
-
+  const [formKey, setFormKey] = useState(Date.now());
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     if (newCommentText.trim() || newCommentFiles.length > 0) {
-      console.log(workspaceData.api);
       try {
         const attachmentUrls = [];
-  
         for (const file of newCommentFiles) {
           const formData = new FormData();
           formData.append('attachment', file);
-  
-          // Upload attachment and get its ID
           const attachmentResponse = await axios.post(
             `https://api.clickup.com/api/v2/task/${taskId}/attachment`,
             formData,
@@ -233,35 +228,26 @@ function renderCommentWithImagesAndText(commentText) {
               headers: { Authorization: workspaceData.api, 'Content-Type': 'multipart/form-data' },
             }
           );
-  
           attachmentUrls.push(attachmentResponse.data.url);
         }
-  
-        // Create a single comment with all attachment URLs
-        const commentText = `From: ${userEmail}\n\n\n${newCommentText}\n${attachmentUrls.join('\n')}`;
-        const commentData = {
-          comment_text: commentText,
-        };
-  
-        // Post the comment with all attachment URLs
-        await axios.post(`https://api.clickup.com/api/v2/task/${taskId}/comment`, commentData, {
-          headers: { Authorization: workspaceData.api },
-        });
-  
-        // After posting the comment, refresh the chat messages
+
+        const commentText = `From: ${userEmail}\n\n${newCommentText}\n${attachmentUrls.join('\n')}`;
+        await axios.post(
+          `https://api.clickup.com/api/v2/task/${taskId}/comment`,
+          { comment_text: commentText },
+          { headers: { Authorization: workspaceData.api } }
+        );
+
         fetchChatMessages();
-  
-        // Reset the form state
         setNewCommentText('');
         setNewCommentFiles([]);
-  
-        // Clear the file input field
-        document.getElementById('fileInput').value = '';
+        setFormKey(Date.now());
       } catch (error) {
         console.error('Failed to post comment with attachment:', error);
       }
     }
   };
+
 
 
 
@@ -346,7 +332,7 @@ function renderCommentWithImagesAndText(commentText) {
               </button>
             )}
 
-            <form onSubmit={handleSubmit} className="send-message-form">
+            <form key={formKey} onSubmit={handleSubmit} className="send-message-form">
               <textarea value={newCommentText} onChange={handleCommentTextChange} placeholder="Write your comment here..."></textarea>
               <input type="file" onChange={handleCommentFileChange} multiple />
               <button type="submit">Send</button>

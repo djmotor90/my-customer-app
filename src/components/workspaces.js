@@ -247,84 +247,93 @@ function Workspace() {
       <button className= "new-workspace" variant="danger" onClick={openAddWorkspaceModal}>Add New Workspace</button>
 
       <ul>
-        {/* Maps through each workspace to display its details */}
-        {workspaces.map(workspace => (
-          <li key={workspace._id}>
-            {/* Conditionally renders the edit modal for the selected workspace */}
-            {isEditMode && editWorkspaceId === workspace._id ? (
-              <Modal show={showModal} onHide={() => setIsEditMode(false)}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Edit Workspace</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  {/* Input fields for editing workspace details */}
-                  <Form.Group controlId="editWorkspaceName">
-                    <Form.Label>Workspace Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={editData.name}
-                      onChange={(e) => handleInputChange(e, 'name')}
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="editWorkspaceAPI">
-                    <Form.Label>API Key</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={editData.api}
-                      onChange={(e) => handleInputChange(e, 'api')}
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="editWorkspaceListId">
-                    <Form.Label>List ID</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={editData.listId}
-                      onChange={(e) => handleInputChange(e, 'listId')}
-                    />
-                  </Form.Group>
-                  <ListGroup>
-                    {/* Lists users with the option to remove */}
-                    {editData.userNames.map((email, index) => (
-                      <ListGroup.Item key={index}>
-                        {email} <Button variant="danger" size="sm" onClick={() => handleRemoveUser(email)}>Remove</Button>
-                      </ListGroup.Item>
-                    ))}
-                  </ListGroup>
-                  {/* Shows add user field on demand */}
-                  {showAddUserField && (
-                    <Form.Group controlId="newUserEmail">
-                      <Form.Label>Add User Email</Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder="Enter user email"
-                        value={newUserEmail}
-                        onChange={(e) => setNewUserEmail(e.target.value)}
-                      />
-                      <Button variant="success" onClick={handleAddUser} style={{ marginTop: '10px' }}>Add User</Button>
-                    </Form.Group>
-                  )}
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={() => setIsEditMode(false)}>Cancel</Button>
-                  {!showAddUserField && <Button variant="primary" onClick={handleAddUserClick}>Add New User</Button>}
-                  <Button variant="primary" onClick={handleSave}>Save Changes</Button>
-                </Modal.Footer>
-              </Modal>
-            ) : (
-              <div>
-                {/* Display of workspace details with an edit button */}
-                <strong>Name:</strong> {workspace.name}<br/>
-                <strong>Owner:</strong> {workspace.ownerName}<br/>
+  {workspaces.map(workspace => {
+    // Determine if the current user is the owner
+    const isOwner = workspace.owner === userId;
+
+    return (
+      <li key={workspace._id}>
+        {/* Conditionally renders the edit modal for the selected workspace */}
+        {isEditMode && editWorkspaceId === workspace._id ? (
+          <Modal show={showModal} onHide={() => setIsEditMode(false)}>
+            <Modal.Header closeButton>
+              <Modal.Title>Edit Workspace</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {/* Input fields for editing workspace details */}
+              <Form.Group controlId="editWorkspaceName">
+                <Form.Label>Workspace Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={editData.name}
+                  onChange={(e) => handleInputChange(e, 'name')}
+                />
+              </Form.Group>
+              <Form.Group controlId="editWorkspaceAPI">
+                <Form.Label>API Key</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={editData.api}
+                  onChange={(e) => handleInputChange(e, 'api')}
+                />
+              </Form.Group>
+              <Form.Group controlId="editWorkspaceListId">
+                <Form.Label>List ID</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={editData.listId}
+                  onChange={(e) => handleInputChange(e, 'listId')}
+                />
+              </Form.Group>
+              <ListGroup>
+                {/* Lists users with the option to remove */}
+                {editData.userNames.map((email, index) => (
+                  <ListGroup.Item key={index}>
+                    {email} <Button variant="danger" size="sm" onClick={() => handleRemoveUser(email)}>Remove</Button>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+              {/* Shows add user field on demand */}
+              {showAddUserField && (
+                <Form.Group controlId="newUserEmail">
+                  <Form.Label>Add User Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter user email"
+                    value={newUserEmail}
+                    onChange={(e) => setNewUserEmail(e.target.value)}
+                  />
+                  <Button variant="success" onClick={handleAddUser} style={{marginTop: '10px'}}>Add User</Button>
+                </Form.Group>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => setIsEditMode(false)}>Cancel</Button>
+              {!showAddUserField && <Button variant="primary" onClick={handleAddUserClick}>Add New User</Button>}
+              <Button variant="primary" onClick={handleSave}>Save Changes</Button>
+            </Modal.Footer>
+          </Modal>
+        ) : (
+          <div>
+            {/* Display of workspace details with an edit button */}
+            <strong>Name:</strong> {workspace.name}<br/>
+            <strong>Owner:</strong> {workspace.ownerName}<br/>
+
+            {isOwner && (
+              <>
                 <strong>Users:</strong> {workspace.userNames.join(", ")}<br/>
                 <strong>API Key:</strong> {workspace.api}<br/>
                 <strong>List ID:</strong> {workspace.listId}<br/>
                 <button onClick={() => handleEditClick(workspace)} className="btn btn-success">Edit</button>
                 <button onClick={() => handleDeleteClick(workspace._id)} className="btn btn-danger">Delete</button>
-              </div>
+              </>
             )}
-          </li>
-        ))}
-      </ul>
+          </div>
+        )}
+      </li>
+    );
+  })}
+</ul>
 
       {/* "Add Workspace" modal */}
       <Modal show={showAddWorkspaceModal} onHide={closeAddWorkspaceModal}>
