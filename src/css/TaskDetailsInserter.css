@@ -297,3 +297,15 @@ input::placeholder {
 .task-subtitle{
     margin-top: 50px;
 }
+
+/* Send button */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+  
+}
+
+.sendingAnimation::after {
+  content: '...';
+  animation: blink 1s infinite;
+}

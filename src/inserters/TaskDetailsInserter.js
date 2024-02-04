@@ -213,9 +213,12 @@ function renderCommentWithImagesAndText(commentText) {
     setNewCommentFiles([...newCommentFiles, ...selectedFiles]);
   };
   const [formKey, setFormKey] = useState(Date.now());
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newCommentText.trim() || newCommentFiles.length > 0) {
+      setIsSubmitting(true);
       try {
         const attachmentUrls = [];
         for (const file of newCommentFiles) {
@@ -244,6 +247,8 @@ function renderCommentWithImagesAndText(commentText) {
         setFormKey(Date.now());
       } catch (error) {
         console.error('Failed to post comment with attachment:', error);
+      } finally {
+        setIsSubmitting(false); // End the submission process
       }
     }
   };
@@ -335,7 +340,9 @@ function renderCommentWithImagesAndText(commentText) {
             <form key={formKey} onSubmit={handleSubmit} className="send-message-form">
               <textarea value={newCommentText} onChange={handleCommentTextChange} placeholder="Write your comment here..."></textarea>
               <input type="file" onChange={handleCommentFileChange} multiple />
-              <button type="submit">Send</button>
+              {/* <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Sending..." : "Send"}</button> */}
+              <button type="submit" disabled={isSubmitting} className={isSubmitting ? "sendingAnimation" : ""}>{isSubmitting ? "Sending" : "Send"}</button>
+
             </form>
           </div>
         </div>
