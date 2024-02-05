@@ -244,7 +244,7 @@ function Workspace() {
     <div>
       <CustomNavbar />
       <div className ='workspace-body'>
-      <h1>Your Workspaces</h1>
+      <h1 className='workspace-h1'>Your Workspaces</h1>
       {error && <p className="error">{error}</p>}
       {/* Button to open the "Add Workspace" modal */}
       <button className= "new-workspace" variant="danger" onClick={openAddWorkspaceModal}>Add New Workspace</button>

@@ -9,7 +9,7 @@ function MyRequests() {
   return (
     <div className='myrequest-body'>
         <CustomNavbar />
-      <h1>My Requests</h1>
+      <h1 className='myrequest-h1'>My Requests</h1>
       <MyRequestInserter />
       <Footer/>
     </div>
