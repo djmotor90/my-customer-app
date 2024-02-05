@@ -1,5 +1,7 @@
 .myrequest-body {
     background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
     color: #ffffff;
+    min-height: calc(100vh - 56px);
+    flex-direction: column;
 
   }

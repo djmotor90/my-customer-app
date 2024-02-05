@@ -240,9 +240,10 @@ function Workspace() {
   };
 
   return (
-    <div className ='workspace-body'>
+    
+    <div>
       <CustomNavbar />
-      <div>
+      <div className ='workspace-body'>
       <h1>Your Workspaces</h1>
       {error && <p className="error">{error}</p>}
       {/* Button to open the "Add Workspace" modal */}

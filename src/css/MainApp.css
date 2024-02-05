@@ -1,19 +1,73 @@
+/* MainApp.css */
+.main-app {
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  padding: 20px;
+  min-height: calc(100vh - 56px); /* Adjust based on your navbar height */
+   /* Ensure text is readable on the gradient background */
+}
+
+h2{
+  color:white;
+}
+
+.main-h1{
+   color:white;
+}
+
+/* Loading and user data styles for better visibility */
+
+
+/* Enhancements for positioning utility classes */
 .top-right {
-    position: absolute;
-    top: 10px; 
-    right: 10px; 
-  }
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 
-  .username-text {
-    color: white; 
-    margin-right: 10px; 
-    position: absolute;
-    top: 10px; 
-    right: 100px; 
-  }
+.username-text {
+  color: #ffffff;
+  margin-right: 10px;
+  position: absolute;
+  top: 10px;
+  right: 100px;
+}
 
+/* Additional styling for improved UI */
+.button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #ff5722; /* A vibrant color for buttons */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #e64a19; /* Darken button color on hover */
+}
+
+/* Style adjustments for responsive layout */
+@media (max-width: 768px) {
   .main-app {
-    background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
-    
-
+    padding: 10px;
   }
+  .top-right, .username-text {
+    top: 5px;
+    right: 5px; /* Adjust for smaller screens */
+  }
+}
+.mainapp-bubble {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  margin: 10px auto;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.mainapp-bubble:hover {
+  transform: translateY(-2px);
+}

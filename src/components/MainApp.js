@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomNavbar from '../navbar/Navbar.js';
 import { setUserData, setLoading } from '../features/userSlice'; // Import actions from userSlice
+import '../css/MainApp.css'
+import Footer from '../footer/GlobalFooter_mainapp.js'
 
 function MainApp() {
   const dispatch = useDispatch();
@@ -33,21 +35,26 @@ function MainApp() {
   }, [isLoggedIn, userId, dispatch, navigate]);
 
   return (
-    <div className="main-app">
+    <div >
       <CustomNavbar />
-      <h1>Welcome to the Main Application</h1>
+      <div className="main-app">
+      <h1 className="main-h1">Welcome to the Main Application</h1>
       <h2>User Information</h2>
       {loading ? (
         <p>Loading user data...</p>
       ) : userData ? (
         <>
+        <div className='mainapp-bubble'>
           <p>First Name: {userData.firstName}</p>
           <p>Last Name: {userData.lastName}</p>
           <p>Email: {userData.email}</p>
+          </div>
         </>
       ) : (
         <p>User data not available.</p>
       )}
+      </div>
+      <Footer/>
     </div>
   );
 }

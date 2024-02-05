@@ -1,6 +1,7 @@
 .workspace-body {
     background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
-    
+    min-height: calc(100vh - 56px);
+    flex-direction: column;
 
   }
 /* THIS CREATES ISSUES */
@@ -38,6 +39,7 @@ body {
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.2s ease-in-out;
+    
   }
   
   li:hover {
@@ -106,6 +108,4 @@ body {
       background-color: darken(#007bff, 10%);
     }
   }
-  
-  /* Additional styles can be added as needed */
   

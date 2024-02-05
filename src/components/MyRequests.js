@@ -11,7 +11,7 @@ function MyRequests() {
         <CustomNavbar />
       <h1>My Requests</h1>
       <MyRequestInserter />
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 }

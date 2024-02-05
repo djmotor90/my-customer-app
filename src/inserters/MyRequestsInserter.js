@@ -93,10 +93,10 @@ function MyRequestInserter() {
   };
 
   return (
-    <div>
+    <div className='myrequestinserter-body'>
       <h2>My Workspace Details</h2>
       {workspaceData && (
-        <div>
+        <div >
           {/* <p>Selected Workspace ID: {selectedWorkspaceId}</p>
           <p>User Email: {userEmail}</p>
           <p>Workspace Name: {workspaceData.name}</p>

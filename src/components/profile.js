@@ -3,6 +3,8 @@ import axios from 'axios';
 import CustomNavbar from '../navbar/Navbar.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserData } from '../features/userSlice'; // Import setUserData action
+import '../css/profile.css'
+import Footer from '../footer/GlobalFooter_mainapp.js'
 
 function Profile() {
   const userId = useSelector((state) => state.auth.userId); // Retrieve user ID from Redux store
@@ -51,9 +53,10 @@ function Profile() {
     }
   };
   return (
-    <div className="profile">
+    <div>
       <CustomNavbar />
-      <h1>User Profile</h1>
+      <div className="profile">
+      <h1 className='profile-h1'>User Profile</h1>
       {isEditMode ? (
         <>
           <div>
@@ -87,13 +90,17 @@ function Profile() {
           <button onClick={handleCancelEdit}>Cancel</button>
         </>
       ) : (
+        <div className='profile-container'>
         <>
           <p>First Name: {userData.firstName}</p>
           <p>Last Name: {userData.lastName}</p>
           <p>Email: {userData.email}</p>
           <button onClick={handleEditClick}>Edit</button>
         </>
+        </div>
       )}
+    </div>
+    <Footer/>
     </div>
   );
 }
