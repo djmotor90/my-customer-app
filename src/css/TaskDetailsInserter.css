@@ -309,3 +309,8 @@ input::placeholder {
   content: '...';
   animation: blink 1s infinite;
 }
+
+/* TaskDetailsInserter.css */
+.preserve-format {
+  white-space: pre-wrap;
+}

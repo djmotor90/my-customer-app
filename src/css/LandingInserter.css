@@ -1,0 +1,96 @@
+/* LandingPage.css */
+
+/* Hero Section */
+.hero-section {
+    /* Existing gradient as an overlay */
+    background: linear-gradient(to right, rgba(109, 213, 237, 0.85), rgba(33, 147, 176, 0.85)), 
+    /* Your image from the URL */
+    url('https://objectstorage.us-ashburn-1.oraclecloud.com/p/63ebsPewHpY0OMa8ZPtlhAqsNZlh68pTgj9BUxjdEzA9jMPZmmrjrZYBWSnLyp1l/n/idjegt7oebz2/b/CPCP/o/djmotor_technology_abstract_wave_colors_with_starts_linear_grad_532e28a5-2363-461a-8b75-cc69d6efb732.webp');
+    /* Ensures the image covers the whole section and is not repeated */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 200px 15px;
+    text-align: center;
+    color: white;
+  }
+  
+  .hero-title {
+    color: #333;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-subtitle {
+    color: #555;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .image-text-section {
+    display: flex;
+    align-items: center;
+    
+    /* margin: 4rem 0; */
+    /* Add a gradient or shadow here to blend the images */
+  }
+  
+  .image-text-section .img-fluid {
+    display: block;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+    border-radius: 8px; /* Slightly rounded corners for a softer look */
+    /* margin-bottom: -8%; */
+    
+
+  }
+  
+  .text-content1 {
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.85); 
+    margin: 0 -15px; 
+    z-index: 1;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin: 0 2% 0 2%;
+    overflow: hidden; 
+  
+    
+  }
+  
+  .text-content h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .text-content p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .image-text-section {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .text-content {
+      padding: 2rem;
+      margin: 0; /* Reset the margin for mobile */
+    }
+  }
+
+  .row{
+    margin-right: 0px;
+  }
+  .text-content-h2{
+    color:black
+  }
+
+
+  

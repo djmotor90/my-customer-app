@@ -63,7 +63,7 @@ function ContactUs() {
       <Container className="contact-us-container">
         <Row className="justify-content-center">
           <Col lg={6}>
-            <h2>Contact Us</h2>
+            <h2 className='contactus-h2'>Contact Us</h2>
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="name">
                 <Form.Label>Name</Form.Label>

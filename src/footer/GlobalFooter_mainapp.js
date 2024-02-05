@@ -21,8 +21,8 @@ function Footer() {
             </Col>
             <Col md={6}>
               <ul className="footer-links">
-                <li><a href="privacy">Privacy Policy</a></li>
-                <li><a href="terms">Terms of Service</a></li>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                {/* <li><a href="terms">Terms of Service</a></li> */}
               </ul>
             </Col>
           </Row>

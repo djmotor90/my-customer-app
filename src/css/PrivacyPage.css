@@ -1,0 +1,47 @@
+/* PrivacyPage.css */
+
+.privacy-policy-page {
+    /* padding: 20px; */
+    background-color: #f8f9fa; /* Light background to ensure readability */
+    min-height: 100vh; /* Full height */
+  }
+  
+  .privacy-h2 {
+    color: #333; /* Darker text for headings */
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .privacy-p {
+    color: #555; /* Slightly lighter text for body */
+    line-height: 1.6; /* Improved readability through line spacing */
+    margin-bottom: 15px; /* Space between paragraphs */
+  }
+  
+  .privacy-h3 {
+    color: #444; /* Slightly lighter than h2 for sub-headings */
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .privacy-policy-page {
+      padding: 15px;
+    }
+    
+    .privacy-h2, .privacy-h3 {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    
+    .privacy-p {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  .privacy-affiliation{
+    color: red
+  }
+  

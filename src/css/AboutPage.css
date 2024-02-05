@@ -11,3 +11,17 @@
     height: 100%; /* Make the content within the about-page occupy the full height */
   }
   
+  .aboutus-h2{
+    color:black
+  }
+  .about-row{
+    display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 100vh; /* Full height of the viewport */
+  }
+
+  .aboutus-disclamer{
+    color: red;
+    font-weight: 500;
+  }

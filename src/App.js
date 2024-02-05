@@ -11,19 +11,25 @@ import MyRequests from './components/MyRequests.js';
 import AboutUs from './components/AboutUs.js';
 import ContactUs from './components/ContactUs.js';
 import TaskDetails from './components/TaskDetails';
+import Privacy from './components/privacy.js';
+import NewRequest from './components/NewRequestForm.js';
+import AboutUs1 from './components/Aboutus1.js';
 
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/privacy" element={<Privacy />}/>
       <Route path="/about" element={<AboutUs />}/>
+      <Route path="/about1" element={<AboutUs1 />}/>
       <Route path="/contact" element={<ContactUs />}/>
       <Route path="/mainapp/*" element={<CustomNavbar />} />
       <Route path="/mainapp" element={<PrivateRoute element={<MainApp />} />} />
       <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
       <Route path="/workspaces" element={<PrivateRoute element={<Workspaces />} />} />
       <Route path="/myrequests" element={<PrivateRoute element={<MyRequests />} />} />
+      <Route path="/newrequest" element={<PrivateRoute element={<NewRequest />} />} />
       <Route path="/task-details/:taskId"  element={<PrivateRoute element={<TaskDetails />} />} />
       
 

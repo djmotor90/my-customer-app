@@ -28,6 +28,8 @@ function NewRequestForm() {
     };
 
     return (
+        <div><Navbar/>
+        <div className=''>
         <form onSubmit={handleSubmit}>
             <label htmlFor="title">Title:</label>
             <input
@@ -50,6 +52,9 @@ function NewRequestForm() {
 
             <button type="submit">Submit Request</button>
         </form>
+        </div>
+        <Footer/>
+        </div>
     );
 }
 

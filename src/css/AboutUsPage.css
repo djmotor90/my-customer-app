@@ -1,0 +1,20 @@
+/* AboutUsPage.css */
+
+/* Ensuring the column itself is flex and centers its children */
+.about-us-iframe-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically, if the column's height is defined */
+    height: 100vh; /* Example fixed height, adjust as needed */
+    width: 100vw;
+  }
+  
+  iframe {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100vw; /* Adjust based on desired width, or keep it responsive */
+
+    height: 66vh; /* Full height of the container */
+  }
+  

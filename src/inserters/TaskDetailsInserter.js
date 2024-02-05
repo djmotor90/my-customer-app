@@ -307,6 +307,9 @@ function renderCommentWithImagesAndText(commentText) {
     </div>
   ));
 
+  const descriptionParagraphs = taskDetails?.description 
+  ? taskDetails.description.split('\n').map((paragraph, index) => (<p key={index} className="task-description-paragraph">{paragraph}</p>)) 
+  : 'No description available.';
 
 //RETURN OF THE PAGE
 
@@ -320,7 +323,7 @@ function renderCommentWithImagesAndText(commentText) {
           <div className="task-card-bodies-container">
             <div className="task-card-body">
               <h4 className="task-subtitle">Description 📖</h4>
-              <div className="task-description">{renderCommentText(taskDetails.description)}</div>
+              <div className="task-description">{descriptionParagraphs}</div>
             </div>
             <div className="task-card-body">
               <h4 className="task-subtitle">Additional Information ℹ️</h4>
