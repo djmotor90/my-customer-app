@@ -5,7 +5,7 @@
     /* Existing gradient as an overlay */
     background: linear-gradient(to right, rgba(109, 213, 237, 0.85), rgba(33, 147, 176, 0.85)), 
     /* Your image from the URL */
-    url('https://objectstorage.us-ashburn-1.oraclecloud.com/p/63ebsPewHpY0OMa8ZPtlhAqsNZlh68pTgj9BUxjdEzA9jMPZmmrjrZYBWSnLyp1l/n/idjegt7oebz2/b/CPCP/o/djmotor_technology_abstract_wave_colors_with_starts_linear_grad_532e28a5-2363-461a-8b75-cc69d6efb732.webp');
+    url('https://objectstorage.us-ashburn-1.oraclecloud.com/p/dloJNQYM5F-CssAZKPO5Lujxvs58WJZeRVyP2T5nfQJLRBP9rFvxxt_bMrWGjLZQ/n/idjegt7oebz2/b/CPCP/o/djmotor_technology_abstract_wave_colors_with_starts_linear_grad_532e28a5-2363-461a-8b75-cc69d6efb732.webp');
     /* Ensures the image covers the whole section and is not repeated */
     background-size: cover;
     background-repeat: no-repeat;
