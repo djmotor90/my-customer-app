@@ -5,20 +5,20 @@ import '../css/taskdetails.css'; // Ensure you have this CSS file in your projec
 import Footer from '../footer/GlobalFooter_mainapp'
 
 function TaskDetails() {
-    return (
-      <div className="taskdetails"> {/* Apply the class here */}
-        <Navbar />
-        <div className='taskdetails-body'>
-        <div className="content-wrapper" style={{  margin: '0 auto', padding: '20px' }}>
+  return (
+    <div className="taskdetails-container">
+      <Navbar />
+      <div className='taskdetails-body'>
+        <div className="content-wrapper" style={{ margin: '0 auto', padding: '20px' }}>
           <h2 style={{ color: '#ffffff' }}>Task Details</h2>
-          <TaskDetailsInserter /> {/* Render the TaskDetailsInserter component here */}
-          {/* Add more task details here if needed */}
-          
+          <TaskDetailsInserter />
         </div>
-        </div>
-        <Footer/>
       </div>
-    );
+      <div className="footer1">
+      <Footer />
+      </div>
+    </div>
+  );
 }
 
 export default TaskDetails; // Export the TaskDetails component

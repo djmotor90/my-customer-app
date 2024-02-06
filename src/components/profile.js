@@ -85,17 +85,22 @@ function Profile() {
               value={updatedUserData.email}
               onChange={handleInputChange}
             />
+            
           </div>
-          <button onClick={handleSubmit}>Save</button>
-          <button onClick={handleCancelEdit}>Cancel</button>
+          <div> 
+          <button className="btn btn-success" onClick={handleSubmit}>Save</button>
+          <button className="btn btn-danger" onClick={handleCancelEdit}>Cancel</button>
+          </div>
+          
         </>
+        
       ) : (
         <div className='profile-container'>
         <>
           <p>First Name: {userData.firstName}</p>
           <p>Last Name: {userData.lastName}</p>
           <p>Email: {userData.email}</p>
-          <button onClick={handleEditClick}>Edit</button>
+          <button className="btn btn-danger" onClick={handleEditClick}>Edit</button>
         </>
         </div>
       )}

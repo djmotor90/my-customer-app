@@ -1,16 +1,29 @@
+/* Ensure the container takes at least the full height of the viewport */
 .new-request-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Make sure the container takes at least the full height of the viewport */
-  }
-  
-  .newrequest-body {
-    flex: 1; /* This makes the content area flexible, pushing the footer down */
-    /* Add additional styling for your content area here */
-  }
-  
-  .iframe-container iframe {
-    width: 100vw; /* Adjust iframe width as necessary */
-    height: 100vh; /* Adjust iframe height as necessary */
-    border: none; /* Optional: removes the border */
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Allow the body to grow and take up remaining vertical space */
+.newrequest-body {
+  flex: 1;
+}
+
+/* Optional: Adjust iframe width and height as necessary */
+.iframe-container iframe {
+  width: 100%; /* Adjust iframe width as necessary */
+  height: 85vh; /* Adjust iframe height as necessary */
+  border: none; /* Optional: removes the border */
+}
+
+/* Styling for the footer */
+/* You may need to modify the footer styles as needed */
+.global-footer {
+  background-color: #333;
+  color: #fff;
+  padding-top: 30px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}

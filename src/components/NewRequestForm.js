@@ -10,7 +10,6 @@ function NewRequestPage() {
   const token = useSelector((state) => state.auth.token);
   const [workspaceData, setWorkspaceData] = useState(null);
 
-
   useEffect(() => {
     const fetchWorkspaceDetails = async () => {
       try {
@@ -45,4 +44,5 @@ function NewRequestPage() {
     </div>
   );
 }
+
 export default NewRequestPage;
