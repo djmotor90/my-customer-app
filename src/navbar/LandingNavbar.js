@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Navbar, Nav } from 'react-bootstrap';
+import { Button, Navbar, Nav, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,8 @@ function LandingNavbar() {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [loginFormData, setLoginFormData] = useState({ email: '', password: '' });
   const [signupFormData, setSignupFormData] = useState({ firstName: '', lastName: '', email: '', password: '' });
+  const [showSignupFeedbackModal, setShowSignupFeedbackModal] = useState(false);
+const [signupFeedbackMessage, setSignupFeedbackMessage] = useState('');
 
   const handleLoginInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,11 +50,18 @@ function LandingNavbar() {
     try {
       const response = await axios.post('/api/auth/signup', signupFormData);
       console.log('Signup Successful', response.data);
-
-      dispatch(setLogin(true));
-      navigate('/mainapp');
+  
+      setShowSignupModal(false);
+      setSignupFeedbackMessage(`You are successfully signed up, now login.`);
+      setShowSignupFeedbackModal(true);
+      dispatch(setLogin(false));
+      // navigate('/mainapp');
     } catch (error) {
       console.error('Signup Failed', error.response.data);
+  
+      // Corrected to use the intended state updater functions
+      setSignupFeedbackMessage(`The signup was unsuccessful due to error: ${error.response.data}`);
+      setShowSignupFeedbackModal(true);
     }
   };
 
@@ -94,6 +103,17 @@ function LandingNavbar() {
             </>
           )}
         </div>
+        <Modal show={showSignupFeedbackModal} onHide={() => setShowSignupFeedbackModal(false)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Signup Feedback</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>{signupFeedbackMessage}</Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowSignupFeedbackModal(false)}>
+      Close
+    </Button>
+  </Modal.Footer>
+</Modal>
       </Navbar.Collapse>
     
       <LandingModal
@@ -108,6 +128,7 @@ function LandingNavbar() {
         handleSignupInputChange={handleSignupInputChange}
         handleSignupSubmit={handleSignupSubmit}
       />
+      
     </Navbar>
   );
 }

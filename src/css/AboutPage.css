@@ -25,3 +25,16 @@
     color: red;
     font-weight: 500;
   }
+  .aboutus-image {
+    height: 100vh; /* Make the image column take full viewport height */
+    padding: 0; /* Remove padding to ensure image can fully cover the area */
+    display: flex;
+    justify-content: center; /* Center image horizontally */
+    align-items: center; /* Center image vertically */
+  }
+  
+  .aboutus-image img {
+    width: 100vw;
+    height: 100vh; 
+    object-fit: cover; 
+  }

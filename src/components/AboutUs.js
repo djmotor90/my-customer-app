@@ -20,7 +20,7 @@ function AboutPage() {
               <p>Our mission is to simplify project management and empower teams to work more efficiently. Whether you're a small startup or a large enterprise, ClickUp Portal has the tools you need to succeed.</p>
               <p className='aboutus-disclamer'>My ClickUp Portal operates independently and is not affiliated with, endorsed, or sponsored by ClickUp or any of its subsidiaries.</p>
             </Col>
-            <Col lg={6}>
+            <Col lg={6} className='aboutus-image'>
               <Image src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/Bd887Jq46nB68kfxJqiqgAX6U0rehZWH8Mwp4GLAiMR7181NSaAtSzN3l-rDGEP7/n/idjegt7oebz2/b/CPCP/o/djmotor_IT_people_coding_applications_to_help_other_people_futu_0a09ab7e-65be-4b3c-8761-4d355702e585.webp" alt="ClickUp Portal" fluid rounded />
             </Col>
           </Row>
