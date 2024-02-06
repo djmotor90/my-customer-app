@@ -1,61 +1,48 @@
-import React, { useState } from 'react';
-import '../css/NewRequestForm.css'
-import Navbar from '../navbar/Navbar.js'
-import Footer from '../footer/GlobalFooter_mainapp.js'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import LandingNavbar from '../navbar/Navbar';
+import GlobalFooter from '../footer/GlobalFooter_mainapp';
+import '../css/NewRequestForm.css';
 
-function NewRequestForm() {
-    // State to store input values
-    const [requestData, setRequestData] = useState({
-        title: '',
-        description: '',
-        // Add other fields as necessary
-    });
+function NewRequestPage() {
+  const selectedWorkspaceId = useSelector((state) => state.workspace.selectedWorkspaceId);
+  const token = useSelector((state) => state.auth.token);
+  const [workspaceData, setWorkspaceData] = useState(null);
 
-    // Handle input change
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setRequestData(prevState => ({
-            ...prevState,
-            [name]: value,
-        }));
+
+  useEffect(() => {
+    const fetchWorkspaceDetails = async () => {
+      try {
+        if (selectedWorkspaceId && token) {
+          const response = await axios.get(`/api/workspace/space/${selectedWorkspaceId}`, {
+            headers: { 'Authorization': `Bearer ${token}` },
+          });
+          setWorkspaceData(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching workspace details:', error);
+      }
     };
 
-    // Handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Submitting:', requestData);
-        // Here you would typically send the data to a server or perform other submission logic
-    };
+    fetchWorkspaceDetails();
+  }, [selectedWorkspaceId, token]);
 
-    return (
-        <div><Navbar/>
-        <div className=''>
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="title">Title:</label>
-            <input
-                type="text"
-                id="title"
-                name="title"
-                value={requestData.title}
-                onChange={handleChange}
-            />
-
-            <label htmlFor="description">Description:</label>
-            <textarea
-                id="description"
-                name="description"
-                value={requestData.description}
-                onChange={handleChange}
-            ></textarea>
-
-            {/* Add other input fields as necessary */}
-
-            <button type="submit">Submit Request</button>
-        </form>
+  return (
+    <div className="new-request-page">
+      <LandingNavbar />
+      <div className='newrequest-body'>
+        <div className="iframe-container">
+          {workspaceData && workspaceData.requestLink && (
+            <iframe
+              src={workspaceData.requestLink}
+              title="New Request"  
+            ></iframe>
+          )}
         </div>
-        <Footer/>
-        </div>
-    );
+      </div>
+      <GlobalFooter />
+    </div>
+  );
 }
-
-export default NewRequestForm;
+export default NewRequestPage;

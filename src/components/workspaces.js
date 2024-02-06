@@ -24,6 +24,8 @@ function Workspace() {
   const [isDeletePromptOpen, setIsDeletePromptOpen] = useState(false); // Delete confirmation modal
   const token = useSelector((state) => state.auth.token); // Auth token from redux state
   const userId = useSelector((state) => state.auth.userId); // Current user's ID from redux state
+  const [newWorkspaceRequestLink, setNewWorkspaceRequestLink] = useState(''); // Request Link for the new workspace
+  
 
   // Fetches details of a single user by their ID
   const fetchUserDetails = useCallback(async (userId) => {
@@ -130,9 +132,12 @@ function Workspace() {
         users: updatedUserIds,
         api: editData.api,
         listId: editData.listId, // Include listId
+        requestLink: newWorkspaceRequestLink
+        
       }, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
+      console.log(newWorkspaceRequestLink)
 
       setIsEditMode(false);
       setShowModal(false);
@@ -175,7 +180,8 @@ function Workspace() {
         owner: userId,
         users: [userId], // Add the current user as the owner and a user
         api: newWorkspaceApi,
-        listId: newWorkspaceListId, // Include listId
+        listId: newWorkspaceListId,
+        requestLink: newWorkspaceRequestLink // Include listId
       }, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
@@ -288,6 +294,14 @@ function Workspace() {
                   onChange={(e) => handleInputChange(e, 'listId')}
                 />
               </Form.Group>
+              <Form.Group controlId="newWorkspaceRequestLink">
+                <Form.Label>Request Link</Form.Label>
+                 <Form.Control
+                type="text"
+                value={newWorkspaceRequestLink}
+                onChange={(e) => setNewWorkspaceRequestLink(e.target.value)}
+                />
+              </Form.Group>
               <ListGroup>
                 {/* Lists users with the option to remove */}
                 {editData.userNames.map((email, index) => (
@@ -327,6 +341,7 @@ function Workspace() {
                 <strong>Users:</strong> {workspace.userNames.join(", ")}<br/>
                 <strong>API Key:</strong> {workspace.api}<br/>
                 <strong>List ID:</strong> {workspace.listId}<br/>
+                <strong>Request Link:</strong> {workspace.requestLink}<br/>
                 <button onClick={() => handleEditClick(workspace)} className="btn btn-success">Edit</button>
                 <button onClick={() => handleDeleteClick(workspace._id)} className="btn btn-danger">Delete</button>
               </>
@@ -369,6 +384,14 @@ function Workspace() {
               onChange={(e) => handleAddWorkspaceInputChange(e, 'listId')}
             />
           </Form.Group>
+          <Form.Group controlId="newWorkspaceRequestLink">
+      <Form.Label>Request Link</Form.Label>
+      <Form.Control
+        type="text"
+        value={newWorkspaceRequestLink}
+        onChange={(e) => setNewWorkspaceRequestLink(e.target.value)}
+      />
+    </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeAddWorkspaceModal}>Cancel</Button>

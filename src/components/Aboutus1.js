@@ -15,10 +15,7 @@ function AboutUsPage() {
             
             {/* Embedding the ClickUp form */}
             <iframe 
-              src="https://forms.clickup.com/2260133/f/24z55-6974/KY0J6JROK15VK2DOBJ" 
-              
-              frameborder="0" 
-              scrolling="auto">
+              src="https://forms.clickup.com/2260133/f/24z55-6974/KY0J6JROK15VK2DOBJ" >
             </iframe>
           </Col>
           

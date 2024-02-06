@@ -19,6 +19,7 @@ function CustomNavbar() {
   const [newWorkspaceListId, setNewWorkspaceListId] = useState('');
   const selectedWorkspaceId = useSelector((state) => state.workspace.selectedWorkspaceId);
   const navigate = useNavigate(); // Use useNavigate
+  const [newWorkspaceRequestLink, setNewWorkspaceRequestLink] = useState(''); // Request Link for the new workspace
   
 
   const fetchWorkspaces = useCallback(async () => {
@@ -71,6 +72,8 @@ function CustomNavbar() {
         users: [userId],
         api: newWorkspaceApi,
         listId: newWorkspaceListId,
+        requestLink: newWorkspaceRequestLink
+
       }, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
@@ -105,6 +108,7 @@ function CustomNavbar() {
         <Nav className="ml-auto">
           <Nav.Link href="/mainapp">Home</Nav.Link>
           <Nav.Link href="/myrequests">My Requests</Nav.Link>
+          <Nav.Link href="/newrequest">New Request</Nav.Link>
           <NavDropdown title="Workspaces" id="basic-nav-dropdown">
             <NavDropdown.Item className="add-workspace-item" onClick={openAddWorkspaceModal}>
               Add Workspace
@@ -165,6 +169,14 @@ function CustomNavbar() {
               onChange={(e) => handleAddWorkspaceInputChange(e, 'listId')}
             />
           </Form.Group>
+          <Form.Group controlId="newWorkspaceRequestLink">
+                <Form.Label>Request Link</Form.Label>
+                 <Form.Control
+                type="text"
+                value={newWorkspaceRequestLink}
+                onChange={(e) => setNewWorkspaceRequestLink(e.target.value)}
+                />
+              </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeAddWorkspaceModal}>Cancel</Button>
