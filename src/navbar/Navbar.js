@@ -96,7 +96,7 @@ function CustomNavbar() {
     <Navbar bg="dark" variant="dark" expand="lg">
       <Navbar.Brand href="/mainapp">
         <img
-          src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/porSYcHGBSFWrvkh4ZWN8S1OSAPGIZ5pEWWWGGgeZMEVdZE-4BWu3rgKkDo5hyso/n/idjegt7oebz2/b/CPCP/o/CPwhite%20(500%20x%20300%20px).png"
+          src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/vj5m0GUZBqKwfJEDJrzQOLm0OnhEfJR_NUNcA2HL4fnPd5snmBb4bmKN7JbmgNvX/n/idjegt7oebz2/b/CPCP/o/CPwhite%20(500%20x%20300%20px).png"
           alt="Logo"
           width="200"
           height="75"

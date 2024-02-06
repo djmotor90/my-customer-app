@@ -73,7 +73,7 @@ const [signupFeedbackMessage, setSignupFeedbackMessage] = useState('');
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="/">
         <img
-          src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/GaVpOBp7XJbpQa2EOZyZc3yjdxYGp6Jhf1volyKl3q8uHR8DlSQG9w0KTmkh05MX/n/idjegt7oebz2/b/CPCP/o/CP%20(500%20x%20300%20px).png"
+          src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/dio1hxm2-zgEKO50TxR9bMNEgKS3IWfaLq-cGH-sOkdqUBX7RFb7eV39XoariPl8/n/idjegt7oebz2/b/CPCP/o/CP%20(500%20x%20300%20px).png"
           alt="Logo"
           width="200"
           height="75"
