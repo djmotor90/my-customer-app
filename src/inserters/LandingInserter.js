@@ -22,7 +22,7 @@ function LandingInserter() {
     {/* Image and Text Alternating Sections */}
     <Row className="image-text-section">
       <Col md={6} >
-        <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/dfkwJaVQ8m-A3W5VlNU9KOFqxM0jbSBKvCgX4-GBuW4FNCicboVp4-2zrwl4WEae/n/idjegt7oebz2/b/CPCP/o/djmotor_Company_Overview_software_company_c8bda2e5-5472-4626-8b98-298d4671c005.webp" alt="Description" className="img-fluid" />
+        <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/LS99V6HZHP72DSqM0D3sOT0ZOzYBoOSvzmvkO5W1GZEMyjCReG1-UH6GI46NzWQT/n/idjegt7oebz2/b/CPCP/o/djmotor_Company_Overview_software_company_c8bda2e5-5472-4626-8b98-298d4671c005.webp" alt="Description" className="img-fluid" />
       </Col>
       <Col md={6} className="d-flex align-items-rigth justify-content-center">
         <div className="text-content1">
@@ -40,7 +40,7 @@ function LandingInserter() {
 
     <Row className="image-text-section flex-md-row-reverse">
       <Col md={6} >
-        <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/m4W1FuVIEMt9mrKE5cRFNYZs-bR1Hbj9c0Qbt2BstRIadQfY0riqlolKEEevytfB/n/idjegt7oebz2/b/CPCP/o/Untitled%20design.png" alt="Description" className="img-fluid" />
+        <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/Ik6acNz3rIoqadymWDam179oLFMS5R9IYXWGS98SDyA0Th4KSilqYNWtasxrAzjO/n/idjegt7oebz2/b/CPCP/o/Untitled%20design.png" alt="Description" className="img-fluid" />
       </Col>
       <Col md={6} className="d-flex align-items-rigth justify-content-center">
   <div className="text-content1">
