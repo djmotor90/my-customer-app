@@ -8,12 +8,12 @@ import Profile from './components/profile.js';
 import CustomNavbar from './navbar/Navbar.js';
 import Workspaces from './components/workspaces.js';
 import MyRequests from './components/MyRequests.js';
-import AboutUs from './components/AboutUs.js';
+import AboutUs from './components/Aboutus1.js';
 import ContactUs from './components/ContactUs.js';
 import TaskDetails from './components/TaskDetails';
 import Privacy from './components/privacy.js';
 import NewRequest from './components/NewRequestForm.js';
-import AboutUs1 from './components/Aboutus1.js';
+// import AboutUs1 from './components/Aboutus1.js';
 
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/privacy" element={<Privacy />}/>
       <Route path="/about" element={<AboutUs />}/>
-      <Route path="/about1" element={<AboutUs1 />}/>
+      {/* <Route path="/about1" element={<AboutUs1 />}/> */}
       <Route path="/contact" element={<ContactUs />}/>
       <Route path="/mainapp/*" element={<CustomNavbar />} />
       <Route path="/mainapp" element={<PrivateRoute element={<MainApp />} />} />
