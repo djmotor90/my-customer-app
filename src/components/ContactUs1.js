@@ -15,7 +15,10 @@ function AboutUsPage() {
             
             {/* Embedding the ClickUp form */}
             <iframe 
-              src="https://forms.clickup.com/2260133/f/24z55-6974/KY0J6JROK15VK2DOBJ" >
+              src="https://forms.clickup.com/2260133/f/24z55-6974/KY0J6JROK15VK2DOBJ" 
+              title="Contact Us Form"
+              >
+                
             </iframe>
           </Col>
           
